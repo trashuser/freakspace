@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from .models import *
 
-# Create your views here.
+def output_publish(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/index.html', locals())
