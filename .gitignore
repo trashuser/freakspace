@@ -1,2 +1,5 @@
 .idea
 *.pyc
+db.sqlite3
+*.[oa]
+templates/
