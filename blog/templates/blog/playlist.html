@@ -5,12 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-
+    Playlist: {{ playlist }}
     {% for post in posts %}
         <h1>{{ post.title }}</h1>
-        {% if post.playlist %}
-            <h4><a href="{% url 'output_playlist' post.playlist_id %}">{{ post.playlist }}</a></h4>
-        {% endif %}
         <p>{{ post.text }}</p>
         <h3>{{ post.author }}</h3>
 {#        {% for tag in post.tags.all %}#}

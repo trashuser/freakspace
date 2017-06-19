@@ -1,6 +1,27 @@
 from django.db import models
 from django.utils import timezone
+# from django_markdown.widgets import MarkdownWidget
 
+
+class Playlist(models.Model):
+    name = models.CharField(max_length=120)
+    description = models.TextField(max_length=350)
+    # main_img = models.ImageField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class Category(models.Model):
+    title = models.CharField(max_length=120)
+
+    def __str__(self):
+        return self.title
+
+class Tag(models.Model):
+    name = models.CharField(max_length=70)
+
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
@@ -10,6 +31,9 @@ class Post(models.Model):
             default=timezone.now)
     published_date = models.DateTimeField(
             blank=True, null=True)
+    category = models.ForeignKey(Category)
+    playlist = models.ForeignKey(Playlist, blank=True, null=True)
+    tags = models.ManyToManyField(Tag)
 
     def publish(self):
         self.published_date = timezone.now()
