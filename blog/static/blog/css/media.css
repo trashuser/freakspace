@@ -1,0 +1,29 @@
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/*Extra small device*/
+@media (max-width: 768px) {
+	.top-post {
+		display: none;
+	}
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	.top-post {
+		max-height: 400px;
+		overflow-y: scroll;
+	}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+	.top-post {
+		overflow-y: hidden;
+	}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}

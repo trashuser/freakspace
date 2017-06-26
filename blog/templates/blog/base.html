@@ -1,0 +1,62 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/media.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/bootstrap-theme.min.css' %}">
+
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-fixed-top navbar-fs">
+            <div class="container">
+                <a href="{% url 'output_publish' %}">
+                    <img src="{% static 'blog/img/logo.png' %}" alt="" class="logo">
+                </a>
+			    <div class="btn btn-sm btn-default btn-login">Реєстрація</div>
+			    <div class="btn btn-sm btn-default btn-login">Вхід</div>
+            </div>
+		</nav>
+    </header>
+
+    {% block slider %}
+        {# Slider #}
+    {% endblock %}
+
+    {% block tops %}
+        {# TOP-tags and TOP playlist #}
+    {% endblock tops %}
+
+    <!-- POSTS -->
+    {% block blog %}
+        {# posts #}
+    {% endblock %}
+
+
+    {% block singlepost %}
+        {# Single post #}
+    {% endblock %}
+    <!-- END POSTS -->
+
+    {% block playlist %}
+        {# out all post in playlist #}
+    {% endblock %}
+
+
+    <footer class="footer">
+		<div class="container">
+			<span class="text-muted">Copyleft 2017</span>
+		</div>
+	</footer>
+
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/bootstrap.js' %}"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/bootstrap.min.js'%}"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/common.js' %}"></script>
+</body>
+</html>

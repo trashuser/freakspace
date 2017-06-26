@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block singlepost %}
+    {% if post.post_img %}
+        <div style="background-image: url({{ post.post_img.url }})" class="main-img-in-post bg-img-cover" alt=""></div>
+    {% endif %}
+    <div class="container">
+
+        <div class="header-post">
+            <h1 class="name-post-in-post">{{ post.title }}</h1>
+        </div>
+
+    </div>
+    <div class="container single-post">
+        <div class="row">
+            <div class="col-md-9">
+                 <p>{{ post.text }}</p>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail author-box-class" id="author-box">
+                    <!-- <div style="background-image: url(img/afka.jpg);" class="author-box-avatar img-circle"></div> -->
+                    <img src="{% static 'blog/img/afka.jpg' %}" class="img-circle author-box-avatar" alt="">
+                    <h4 class="author-box-nickname ">{{ post.author }}</h4>
+                    <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> 88</h5>
+                    <div class="author-box-info">
+                        <table class="author-box-info-table">
+                            <tr align="center">
+                                <td><span class="glyphicon glyphicon-thumbs-up c777"></span><br>{# like #}</td>
+                                <td><span class="glyphicon glyphicon-eye-open c777"></span><br>{{ post.views }}</td>
+                                <td><span class="glyphicon glyphicon-comment c777"></span><br>{# comments #}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                <!-- </div> -->
+
+                <ul class="nav nav-pills tag-in-post" role="tablist" style="z-index: 1">
+                    <li role="presentation"><a href="#">#arduino <span class="badge">52</span></a></li>
+                    <li role="presentation" ><a href="#">#3Dprint <span class="badge">42</span></a></li>
+                    <li role="presentation"><a href="#">#arduino-uno <span class="badge">36</span></a></li>
+                    <li role="presentation"><a href="#">#arduino-mega <span class="badge">8</span></a></li>
+                    <li role="presentation"><a href="#">#extruder</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

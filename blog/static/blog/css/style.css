@@ -1,0 +1,267 @@
+header {
+	display: block;
+}
+nav {
+	display: block;
+	position: relative;
+}
+body {
+	margin-top: 50px !important;
+	background-color: #f7f7f7 !important;
+}
+
+p {
+	font-size: 18px;
+	line-height: 1.8;
+	color: #777;
+}
+.navbar-fs {
+	background-color: #444;
+}
+.logo {
+	height: 50px;
+}
+
+.btn-login {
+	float: right;
+	margin: 10px;
+}
+/*h2 {
+	margin: 0;     
+	color: #666;
+	padding-top: 90px;
+	font-size: 52px;
+	font-family: "trebuchet ms", sans-serif;    
+}*/
+		
+.item {
+	background: #333;    
+	text-align: center;
+	height: 300px !important;
+}
+.carousel {
+	margin-top: 20px;
+}
+.slide {
+	width: 100%; 
+	height: 100%;
+}
+
+/*TOP POST*/
+.top-post {
+	position: relative;
+	padding: 50px;
+	max-height: 270px;
+	
+}
+.top-post-single {
+	padding: 0 20px;
+}
+.top-post-single-img {
+	width: 100%;
+	max-height: 190px;
+}
+.top-post-single-title {
+	position: absolute;
+    bottom: -10px;
+    left: 25px;
+    right: 5px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 0 0 6px 6px;
+    color: #666;
+}
+.img-thumbnail-post {
+    margin: 30px 10px 0 10px;
+}
+/*END TOP POST*/
+
+
+.tops {
+	padding: 0 30px;
+	/*background-color: #ccc;*/
+}
+.top-playlist {
+	margin: 10px 5px 0 0;
+	width: 120px;
+	height: 120px;
+	/*object-fit: cover;*/
+	/*padding: 0 30px;*/
+	/*background-color: #ccc;*/
+}
+.modal-playlist {
+	/*position: relative;*/
+	/*position: sticky;*/
+    /*bottom: 31px;*/
+    border: none !important;
+}
+.top-tags {
+	/*padding: 0 30px;*/
+	/*background-color: #ccc;*/
+}
+.posts-block {
+	position: relative;
+}
+.post {
+	position: relative;
+	overflow: hidden;
+}
+.author-thumbnail {
+	position: relative;
+	padding: 0 20px;
+	height: 57px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 3px;
+}
+.avatar-thumbnail {
+	position: absolute;
+	height: 52px;
+	width: 52px;
+	/*object-fit: cover;*/
+	/*margin: 0 20px;*/
+	border: 2px solid #777;
+}
+.nick-thumbnail {
+	position: absolute;
+	left: 85px;
+}
+.thank-thumbnail {
+	position: absolute;
+	left: 85px;
+	top: 20px;
+}
+.name-playlist-thumbnail-block {
+	position: absolute;
+    bottom: 67px;
+    right: 3px;
+}
+.name-playlist-thumbnail {
+	background-color: #2aabd2;
+	color: #fff;
+	padding: 5px;
+	border-radius: 3px 0 0 0;
+	font-weight: bold;
+}
+.post-img {
+	width: 100%;
+	height: 150px;
+}
+.playlist-img {
+	width: 100%;
+	height: 183px;
+}
+.btn-description-playlist {
+	position: absolute;
+    bottom: 33px;
+    right: 26px;
+}
+.post-text {
+	width: 100%;
+	height: 150px;
+	overflow: hidden;
+	font-size: 12px;
+	margin: 0;
+}
+.bg-img-cover {
+	background-size: cover;
+	background-position: center;
+}
+
+.header-post {
+	position: absolute;
+	top: 50px;
+	height: 300px;
+	width: 90%;
+	margin-left: auto;
+
+}
+.name-post {
+    /*position: absolute;*/
+    bottom: 33px;
+    left: 10px;
+    padding: 4px;
+    border-radius: 4px;
+    /*background: rgba(255, 255, 255, 0.7);*/
+}
+.name-post-in-post {
+	text-align: center;
+    color: #fff;
+    margin-top: 220px;
+	/*position: absolute;
+    top: 200px;
+    padding: 5px;
+    background: #f7f7f7;
+    border-radius: 3px;
+    box-shadow: 0 0 10px 5px rgba(64, 64, 64, 0.8);*/
+}
+.post-bottom-panel {
+	position: relative;
+	border-bottom: 1px solid #ddd;
+	padding: 0 10px;
+}
+.post-bottom-panel > img {
+	height: 25px;
+}
+.tag-in-post {
+/*	position: absolute;
+    top: 20px;
+    background: #f7f7f7;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 5px rgba(64, 64, 64, 0.8);*/
+}
+
+.playlist-header {
+	margin-top: 30px;
+}
+
+.c777 {
+	color: #777;
+}
+
+.author-box-class {
+	z-index: 10;
+}
+.author-box-avatar {
+	position: relative;
+    margin: 20px auto;	
+    width: 90px;
+	height: 90px;
+	box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+
+}
+.author-box-nickname {
+	text-align: center;
+}
+.author-box-thanks {
+	text-align: center;
+}
+.author-box-info {
+	padding-top: 10px;
+	border-top: 1px solid #ccc; 
+    font-size: 18px;
+}
+.author-box-info-table {
+	width: 100%;
+}
+
+
+.modal-content {
+	background-color: #f7f7f7 !important;
+}
+
+.main-img-in-post {
+	height: 300px;
+	width: 100%;
+	box-shadow: inset 0px -150px 155px -51px rgba(0,0,0,1);
+}
+.single-post {
+	margin: 35px 0 40px 0;
+}
+
+.footer {
+	width: 100%;
+	height: 60px;
+	line-height: 60px; 
+	background-color: #565656;
+}

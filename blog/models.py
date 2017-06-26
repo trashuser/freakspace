@@ -6,8 +6,9 @@ from django.utils import timezone
 class Playlist(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField(max_length=350)
-    # main_img = models.ImageField(null=True, blank=True)
-
+    main_img = models.ImageField(null=True, blank=True, upload_to='playlist')
+    views = models.IntegerField(default=0)
+    author = models.ForeignKey('auth.User')
     def __str__(self):
         return self.name
 
@@ -34,6 +35,8 @@ class Post(models.Model):
     category = models.ForeignKey(Category)
     playlist = models.ForeignKey(Playlist, blank=True, null=True)
     tags = models.ManyToManyField(Tag)
+    post_img = models.ImageField(null=True, blank=True, upload_to='post')
+    views = models.IntegerField(default=0)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -41,3 +44,4 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
