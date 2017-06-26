@@ -226,7 +226,7 @@ p {
 	position: relative;
     margin: 20px auto;	
     width: 90px;
-	height: 90px;
+	height: 90px !important;
 	box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 
 }

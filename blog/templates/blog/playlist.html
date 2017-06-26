@@ -13,7 +13,6 @@
             </div>
             <div class="col-md-3">
                 <div class="thumbnail author-box-class" id="author-box">
-                    <!-- <div style="background-image: url(img/afka.jpg);" class="author-box-avatar img-circle"></div> -->
                     <img src="{% static 'blog/img/afka.jpg' %}" class="img-circle author-box-avatar" alt="">
                     <h4 class="author-box-nickname ">{{ playlist.author }}</h4>
                     <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> 88</h5>
@@ -45,7 +44,8 @@
                     <div class="thumbnail post">
                         <div class='author-thumbnail'>
                             <a href="#">
-                                <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url(https://freakspace.xyz/wp-content/uploads/rcl-uploads/avatars/5-70.jpg);' alt=''></div>
+{#                                <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url(https://freakspace.xyz/wp-content/uploads/rcl-uploads/avatars/5-70.jpg);' alt=''></div>#}
+                                <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
                                 <h5 class="nick-thumbnail">{{ post.author }}</h5>
                             </a>
                             <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> 88</h6>

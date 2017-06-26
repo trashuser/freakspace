@@ -19,8 +19,8 @@
             </div>
             <div class="col-md-3">
                 <div class="thumbnail author-box-class" id="author-box">
-                    <!-- <div style="background-image: url(img/afka.jpg);" class="author-box-avatar img-circle"></div> -->
-                    <img src="{% static 'blog/img/afka.jpg' %}" class="img-circle author-box-avatar" alt="">
+                    <div style="background-image: url({{ post.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
+{#                    <img src="{{ post.author.avatar.url }}" class="author-box-avatar img-circle bg-img-cover" alt="">#}
                     <h4 class="author-box-nickname ">{{ post.author }}</h4>
                     <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> 88</h5>
                     <div class="author-box-info">

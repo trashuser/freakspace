@@ -1,6 +1,14 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 # from django_markdown.widgets import MarkdownWidget
+
+class UserProfile(models.Model):
+    user   = models.OneToOneField(User)
+    avatar = models.ImageField(upload_to='user_avatar')
+
+    def __str__(self):
+        return self.user.username
 
 
 class Playlist(models.Model):
@@ -9,6 +17,7 @@ class Playlist(models.Model):
     main_img = models.ImageField(null=True, blank=True, upload_to='playlist')
     views = models.IntegerField(default=0)
     author = models.ForeignKey('auth.User')
+
     def __str__(self):
         return self.name
 
@@ -25,7 +34,7 @@ class Tag(models.Model):
         return self.name
 
 class Post(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('UserProfile')
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(
