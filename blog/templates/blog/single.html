@@ -6,28 +6,53 @@
         <div style="background-image: url({{ post.post_img.url }})" class="main-img-in-post bg-img-cover" alt=""></div>
     {% endif %}
     <div class="container">
-
         <div class="header-post">
             <h1 class="name-post-in-post">{{ post.title }}</h1>
+            <ul class="nav nav-pills tag-in-post" role="tablist" style="z-index: 1">
+                <li role="presentation"><a href="#">#arduino <span class="badge">52</span></a></li>
+                <li role="presentation" ><a href="#">#3Dprint <span class="badge">42</span></a></li>
+                <li role="presentation"><a href="#">#arduino-uno <span class="badge">36</span></a></li>
+                <li role="presentation"><a href="#">#arduino-mega <span class="badge">8</span></a></li>
+                <li role="presentation"><a href="#">#extruder</a></li>
+            </ul>
         </div>
-
     </div>
     <div class="container single-post">
         <div class="row">
             <div class="col-md-9">
-                 <p>{{ post.text }}</p>
+                <p>{{ post.text }}</p>
             </div>
             <div class="col-md-3">
                 <div class="thumbnail author-box-class" id="author-box">
                     <div style="background-image: url({{ post.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
 {#                    <img src="{{ post.author.avatar.url }}" class="author-box-avatar img-circle bg-img-cover" alt="">#}
                     <h4 class="author-box-nickname ">{{ post.author }}</h4>
-                    <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> 88</h5>
+                    <h5 class="author-box-thanks">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                        <span id="author-like">{{ post.author.like }}</span>
+                    </h5>
                     <div class="author-box-info">
                         <table class="author-box-info-table">
-                            <tr align="center">
-                                <td><span class="glyphicon glyphicon-thumbs-up c777"></span><br>{# like #}</td>
-                                <td><span class="glyphicon glyphicon-eye-open c777"></span><br>{{ post.views }}</td>
+                            <tr class="info-box" align="center">
+                                <td>
+                                    {% if auth %}
+                                        {% if not push_like and not you_post%}
+        {#                                        <span id="like_this" class="glyphicon glyphicon-thumbs-up c222"></span>#}
+                                                <i id="like_this" class="fa fa-thumbs-o-up c222" aria-hidden="true"></i>
+                                                <div id="like">{{ post.like }}</div>
+                                        {% else %}
+        {#                                        <span class="glyphicon glyphicon-thumbs-up c777"></span>#}
+                                                <i class="fa fa-thumbs-up c777" aria-hidden="true"></i>
+                                                <div>{{ post.like }}</div>
+                                        {% endif %}
+                                    {% else %}
+                                        <i class="fa fa-thumbs-o-up c777" aria-hidden="true"></i>
+                                        <div>{{ post.like }}</div>
+                                    {% endif %}
+                                </td>
+                                <td><span class="glyphicon glyphicon-eye-open c777"></span>
+                                    <br>{{ post.views }}
+                                </td>
                                 <td><span class="glyphicon glyphicon-comment c777"></span><br>{# comments #}</td>
                             </tr>
                         </table>
@@ -36,14 +61,8 @@
                 </div>
                 <!-- </div> -->
 
-                <ul class="nav nav-pills tag-in-post" role="tablist" style="z-index: 1">
-                    <li role="presentation"><a href="#">#arduino <span class="badge">52</span></a></li>
-                    <li role="presentation" ><a href="#">#3Dprint <span class="badge">42</span></a></li>
-                    <li role="presentation"><a href="#">#arduino-uno <span class="badge">36</span></a></li>
-                    <li role="presentation"><a href="#">#arduino-mega <span class="badge">8</span></a></li>
-                    <li role="presentation"><a href="#">#extruder</a></li>
-                </ul>
             </div>
         </div>
     </div>
+
 {% endblock %}

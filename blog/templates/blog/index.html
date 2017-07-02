@@ -25,7 +25,7 @@
                                 <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
                                 <h5 class="nick-thumbnail">{{ post.author }}</h5>
                             </a>
-                            <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> 88</h6>
+                            <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h6>
                         </div>
 
                             {% if post.post_img %}
@@ -42,9 +42,9 @@
                             </a>
                         {% endif %}
                         <div class="post-bottom-panel">
-                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}
-                            &nbsp;
-                            <span class="glyphicon glyphicon-comment c777"></span> 3
+                            <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;
+                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;
+{#                            <span class="glyphicon glyphicon-comment c777"></span> 3#}
                         </div>
                         <a href="{% url 'out_single_post' post.id %}">
                             <h4 class="name-post">{{ post.title }}</h4>

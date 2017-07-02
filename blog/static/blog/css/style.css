@@ -184,9 +184,9 @@ p {
     /*background: rgba(255, 255, 255, 0.7);*/
 }
 .name-post-in-post {
-	text-align: center;
+	/*text-align: center;*/
     color: #fff;
-    margin-top: 220px;
+    margin-top: 208px;
 	/*position: absolute;
     top: 200px;
     padding: 5px;
@@ -218,6 +218,9 @@ p {
 .c777 {
 	color: #777;
 }
+.c222 {
+	color: #222;
+}
 
 .author-box-class {
 	z-index: 10;
@@ -244,7 +247,9 @@ p {
 .author-box-info-table {
 	width: 100%;
 }
-
+.info-box > td{
+	width: 33%;
+}
 
 .modal-content {
 	background-color: #f7f7f7 !important;

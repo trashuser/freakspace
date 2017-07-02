@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 # from django_markdown.widgets import MarkdownWidget
 
 class UserProfile(models.Model):
-    user   = models.OneToOneField(User)
+    user = models.OneToOneField(User)
+    like = models.IntegerField(default=50)
     avatar = models.ImageField(upload_to='user_avatar')
 
     def __str__(self):
@@ -16,6 +17,7 @@ class Playlist(models.Model):
     description = models.TextField(max_length=350)
     main_img = models.ImageField(null=True, blank=True, upload_to='playlist')
     views = models.IntegerField(default=0)
+    like = models.IntegerField(default=0)
     author = models.ForeignKey('auth.User')
 
     def __str__(self):
@@ -46,6 +48,8 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag)
     post_img = models.ImageField(null=True, blank=True, upload_to='post')
     views = models.IntegerField(default=0)
+    like = models.IntegerField(default=0)
+    liking = models.ManyToManyField(User, blank=True)
 
     def publish(self):
         self.published_date = timezone.now()

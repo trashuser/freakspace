@@ -8,17 +8,20 @@
 	<link rel="stylesheet" href="{% static 'blog/css/media.css' %}">
 	<link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
 	<link rel="stylesheet" href="{% static 'blog/css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/font-awesome.min.css' %}">
 
 </head>
 <body>
 	<header>
 		<nav class="navbar navbar-fixed-top navbar-fs">
             <div class="container">
-                <a href="{% url 'output_publish' %}">
-                    <img src="{% static 'blog/img/logo.png' %}" alt="" class="logo">
-                </a>
-			    <div class="btn btn-sm btn-default btn-login">Реєстрація</div>
-			    <div class="btn btn-sm btn-default btn-login">Вхід</div>
+                <div class="row">
+                    <a href="{% url 'output_publish' %}">
+                        <img src="{% static 'blog/img/logo.png' %}" alt="" class="logo">
+                    </a>
+                    <div class="btn btn-sm btn-default btn-login">Реєстрація</div>
+                    <div class="btn btn-sm btn-default btn-login">Вхід</div>
+                </div>
             </div>
 		</nav>
     </header>
@@ -53,10 +56,31 @@
 		</div>
 	</footer>
 
+
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/bootstrap.js' %}"></script>
     <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/bootstrap.min.js'%}"></script>
     <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/common.js' %}"></script>
+    <script>
+{#        var content = document.getElementById("like");#}
+        var url = document.createElement('a');
+        url.href = document.URL;
+        $(document).ready(function () {
+            $("#like_this").click(function() {
+                $.ajax({
+                    type: 'GET',
+                    async: true,
+                    url: '/ajax'+url.pathname,
+                    success: function(data) {
+                        $("#like").html(data['count-like']);
+                        $("#author-like").html(data['author-like']);
+                        $("#like_this").removeClass('fa-thumbs-o-up c222').addClass('fa-thumbs-up c777');
+                    },
+                    dataType: 'json'
+                });
+            });
+        });
+    </script>
 </body>
 </html>

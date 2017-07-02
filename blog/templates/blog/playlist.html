@@ -15,11 +15,11 @@
                 <div class="thumbnail author-box-class" id="author-box">
                     <img src="{% static 'blog/img/afka.jpg' %}" class="img-circle author-box-avatar" alt="">
                     <h4 class="author-box-nickname ">{{ playlist.author }}</h4>
-                    <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> 88</h5>
+                    <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h5>
                     <div class="author-box-info">
                         <table class="author-box-info-table">
                             <tr align="center">
-                                <td><span class="glyphicon glyphicon-thumbs-up c777"></span><br>{# like #}</td>
+                                <td><span class="glyphicon glyphicon-thumbs-up c777"></span><br>{{ playlist.like }}</td>
                                 <td><span class="glyphicon glyphicon-eye-open c777"></span><br>{{ playlist.views }}</td>
                                 <td><span class="glyphicon glyphicon-comment c777"></span><br>{# comments #}</td>
                             </tr>
@@ -44,11 +44,10 @@
                     <div class="thumbnail post">
                         <div class='author-thumbnail'>
                             <a href="#">
-{#                                <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url(https://freakspace.xyz/wp-content/uploads/rcl-uploads/avatars/5-70.jpg);' alt=''></div>#}
                                 <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
                                 <h5 class="nick-thumbnail">{{ post.author }}</h5>
                             </a>
-                            <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> 88</h6>
+                            <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h6>
                         </div>
 
                             {% if post.post_img %}
@@ -65,9 +64,9 @@
                             </a>
                         {% endif %}
                         <div class="post-bottom-panel">
-                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}
-                            &nbsp;
-                            <span class="glyphicon glyphicon-comment c777"></span> 3
+                            <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;
+                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;
+{#                            <span class="glyphicon glyphicon-comment c777"></span> 3#}
                         </div>
                         <a href="{% url 'out_single_post' post.id %}">
                             <h4 class="name-post">{{ post.title }}</h4>
