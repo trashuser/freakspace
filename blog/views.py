@@ -1,11 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from .models import *
 from django.http import Http404, JsonResponse
+# from django.core.context_processors import csrf
+
 
 def output_publish(request):
     posts = Post.objects.order_by('-created_date')
+    auth = False
+    if request.user.is_authenticated():
+        user = UserProfile.objects.get(user_id=request.user)
+        auth = True
     # posts.reverse()
-    return render(request, 'blog/index.html', locals())
+    return render_to_response('blog/index.html', locals())
 
 # def output_tags(request, tag):
 #     tagi = tag
@@ -16,6 +22,11 @@ def output_playlist(request, id):
     update_views_playlist()
     playlist = Playlist.objects.select_related().get(id=id)
     posts = playlist.post_set.all()
+    auth = False
+    if request.user.is_authenticated():
+        user = UserProfile.objects.get(user_id=request.user)
+        auth = True
+
     return render(request, 'blog/playlist.html', locals())
 
 def output_single_pubish(request, id):

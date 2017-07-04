@@ -25,7 +25,7 @@ urlpatterns = [
     # url(r'^tag/', include('blog.urls')),
     # url(r'^markdown/', include('django_markdown.urls')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
-    # url(r'^', include('blog.urls')),
+    url(r'^auth/', include('loginsys.urls')),
     url(r'^', include('blog.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

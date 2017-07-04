@@ -1,5 +1,6 @@
-{% extends 'blog/base.html' %}
+{% extends 'base.html' %}
 {% load staticfiles %}
+{#{% load comments %}#}
 
 {% block singlepost %}
     {% if post.post_img %}
@@ -8,7 +9,7 @@
     <div class="container">
         <div class="header-post">
             <h1 class="name-post-in-post">{{ post.title }}</h1>
-            <ul class="nav nav-pills tag-in-post" role="tablist" style="z-index: 1">
+            <ul class="nav nav-pills tag-in-post" rsole="tablist" style="z-index: 1">
                 <li role="presentation"><a href="#">#arduino <span class="badge">52</span></a></li>
                 <li role="presentation" ><a href="#">#3Dprint <span class="badge">42</span></a></li>
                 <li role="presentation"><a href="#">#arduino-uno <span class="badge">36</span></a></li>
@@ -21,6 +22,7 @@
         <div class="row">
             <div class="col-md-9">
                 <p>{{ post.text }}</p>
+{#                {% render_comment_form for post %}#}
             </div>
             <div class="col-md-3">
                 <div class="thumbnail author-box-class" id="author-box">
@@ -38,12 +40,15 @@
                                     {% if auth %}
                                         {% if not push_like and not you_post%}
         {#                                        <span id="like_this" class="glyphicon glyphicon-thumbs-up c222"></span>#}
-                                                <i id="like_this" class="fa fa-thumbs-o-up c222" aria-hidden="true"></i>
-                                                <div id="like">{{ post.like }}</div>
-                                        {% else %}
+                                            <i id="like_this" class="fa fa-thumbs-o-up c222 cursorPointer" aria-hidden="true"></i>
+                                            <div id="like">{{ post.like }}</div>
+                                        {% elif push_like %}
         {#                                        <span class="glyphicon glyphicon-thumbs-up c777"></span>#}
-                                                <i class="fa fa-thumbs-up c777" aria-hidden="true"></i>
-                                                <div>{{ post.like }}</div>
+                                            <i class="fa fa-thumbs-up cOrange" aria-hidden="true"></i>
+                                            <div>{{ post.like }}</div>
+                                        {% else %}
+                                            <i class="fa fa-thumbs-up c777" aria-hidden="true"></i>
+                                            <div>{{ post.like }}</div>
                                         {% endif %}
                                     {% else %}
                                         <i class="fa fa-thumbs-o-up c777" aria-hidden="true"></i>
@@ -60,7 +65,6 @@
                     </div>
                 </div>
                 <!-- </div> -->
-
             </div>
         </div>
     </div>

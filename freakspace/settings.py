@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'loginsys',
+    'profileuser',
 ]
 # INSTALLED_APPS += ('django_markdown', )
 

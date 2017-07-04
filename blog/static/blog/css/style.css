@@ -25,6 +25,15 @@ p {
 .btn-login {
 	float: right;
 	margin: 10px;
+    background: #353535;
+    padding: 5px 10px;
+    color: #f7f7f7;
+    border-radius: 4px;
+}
+.btn-login:hover {
+	background: #565656;
+	color: #a0a0a0;
+	text-decoration: none;
 }
 /*h2 {
 	margin: 0;     
@@ -176,12 +185,13 @@ p {
 
 }
 .name-post {
-    /*position: absolute;*/
     bottom: 33px;
     left: 10px;
     padding: 4px;
     border-radius: 4px;
-    /*background: rgba(255, 255, 255, 0.7);*/
+    white-space: nowrap; /* Отменяем перенос текста */
+    overflow: hidden; /* Обрезаем содержимое */
+    text-overflow: ellipsis; /* Многоточие */
 }
 .name-post-in-post {
 	/*text-align: center;*/
@@ -214,14 +224,23 @@ p {
 .playlist-header {
 	margin-top: 30px;
 }
-
+.cursorPointer {
+	cursor: pointer;
+}
 .c777 {
 	color: #777;
 }
 .c222 {
 	color: #222;
 }
-
+.cOrange {
+	color: #f0ad4e;
+}
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
 .author-box-class {
 	z-index: 10;
 }

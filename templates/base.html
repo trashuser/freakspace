@@ -12,19 +12,26 @@
 
 </head>
 <body>
-	<header>
+    <header>
 		<nav class="navbar navbar-fixed-top navbar-fs">
             <div class="container">
-                <div class="row">
+{#                <div class="row">#}
                     <a href="{% url 'output_publish' %}">
                         <img src="{% static 'blog/img/logo.png' %}" alt="" class="logo">
                     </a>
-                    <div class="btn btn-sm btn-default btn-login">Реєстрація</div>
-                    <div class="btn btn-sm btn-default btn-login">Вхід</div>
-                </div>
+                    {% if not auth %}
+                        <a href="/auth/login" class="btn-login">Вхід</a>
+                    {% else %}
+                        <a href="/auth/logout" class="btn-login">Вихід ({{ user }})</a>
+                    {% endif %}
+{#                </div>#}
             </div>
 		</nav>
     </header>
+
+    {% block login %}
+        {# login page #}
+    {% endblock %}
 
     {% block slider %}
         {# Slider #}
@@ -75,7 +82,7 @@
                     success: function(data) {
                         $("#like").html(data['count-like']);
                         $("#author-like").html(data['author-like']);
-                        $("#like_this").removeClass('fa-thumbs-o-up c222').addClass('fa-thumbs-up c777');
+                        $("#like_this").removeClass('fa-thumbs-o-up c222').addClass('fa-thumbs-up cOrange');
                     },
                     dataType: 'json'
                 });

@@ -1,0 +1,21 @@
+{% extends 'base_login.html' %}
+
+{% block login %}
+    <div class="container">
+
+        <form action="{% url 'login' %}" method="post" class="form-signin">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Facecontrol:)</h2>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required="" autofocus="" style="height: 46px;border-radius: 5px 5px 0 0;">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="" style="height: 46px;border-radius: 0;">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" style="border-radius: 0 0 5px 5px;">Sign in</button>
+            {% if login_error %}
+                <br><div class="alert alert-warning" role="alert">{{ login_error }}</div>
+            {% endif %}
+        </form>
+
+    </div>
+{% endblock %}

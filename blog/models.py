@@ -1,7 +1,11 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.contrib import admin
 # from django_markdown.widgets import MarkdownWidget
+
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -39,17 +43,23 @@ class Post(models.Model):
     author = models.ForeignKey('UserProfile')
     title = models.CharField(max_length=200)
     text = models.TextField()
+
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
             blank=True, null=True)
-    category = models.ForeignKey(Category)
+
+    # category = models.ForeignKey(Category)
     playlist = models.ForeignKey(Playlist, blank=True, null=True)
     tags = models.ManyToManyField(Tag)
+
     post_img = models.ImageField(null=True, blank=True, upload_to='post')
+
     views = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
     liking = models.ManyToManyField(User, blank=True)
+    class Meta:
+        ordering = ('-created_date',)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -57,4 +67,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+# class Comment(models.Model):
+#     post = models.ForeignKey(Post)
+#     author = models.ForeignKey(UserProfile)
+#     content = models.TextField('Коментар')
+#     pub_date = models.DateTimeField('Дата коментування', default=timezone.now)
+#
+#     def __str__(self):
+#         return  self.content[0:200]
 
