@@ -34,7 +34,7 @@ class Playlist(models.Model):
     main_img = models.ImageField(null=True, blank=True, upload_to='playlist')
     views = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('UserProfile')
 
     def __str__(self):
         return self.name

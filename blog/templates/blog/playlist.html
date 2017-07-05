@@ -13,8 +13,10 @@
             </div>
             <div class="col-md-3">
                 <div class="thumbnail author-box-class" id="author-box">
-                    <img src="{% static 'blog/img/afka.jpg' %}" class="img-circle author-box-avatar" alt="">
-                    <h4 class="author-box-nickname ">{{ playlist.author }}</h4>
+                    <a href="/user/id{{ playlist.author_id }}">
+                        <div style="background-image: url({{ playlist.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
+                        <h4 class="author-box-nickname ">{{ playlist.author }}</h4>
+                    </a>
                     <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h5>
                     <div class="author-box-info">
                         <table class="author-box-info-table">

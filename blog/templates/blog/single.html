@@ -26,9 +26,10 @@
             </div>
             <div class="col-md-3">
                 <div class="thumbnail author-box-class" id="author-box">
-                    <div style="background-image: url({{ post.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
-{#                    <img src="{{ post.author.avatar.url }}" class="author-box-avatar img-circle bg-img-cover" alt="">#}
-                    <h4 class="author-box-nickname ">{{ post.author }}</h4>
+                    <a href="/user/id{{ post.author.id }}">
+                        <div style="background-image: url({{ post.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
+                        <h4 class="author-box-nickname ">{{ post.author }}</h4>
+                    </a>
                     <h5 class="author-box-thanks">
                         <span class="glyphicon glyphicon-thumbs-up"></span>
                         <span id="author-like">{{ post.author.like }}</span>
