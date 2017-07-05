@@ -2,15 +2,27 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+import time
 from django.contrib import admin
 # from django_markdown.widgets import MarkdownWidget
 
 
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
+    email = models.CharField(max_length=70, blank=True, null=True)
     like = models.IntegerField(default=50)
-    avatar = models.ImageField(upload_to='user_avatar')
+    avatar = models.ImageField(upload_to='user_avatar', blank=True, null=True)
+
+    about_me = models.TextField(max_length=120, blank=True, null=True)
+
+    pGitHub = models.CharField('GitHub', max_length=100, blank=True, null=True)
+    pLinkedIn = models.CharField('LinkedIn', max_length=100, blank=True, null=True)
+    pReplace = models.CharField('Replace.org.ua', max_length=100, blank=True, null=True)
+    pCodeguida = models.CharField('Codeguida', max_length=100, blank=True, null=True)
+    pFacebook = models.CharField('Facebook', max_length=100, blank=True, null=True)
+    pTwitter = models.CharField('Twitter', max_length=100, blank=True, null=True)
+
+    last_activity = models.IntegerField('Остання активність', default=time.time)
 
     def __str__(self):
         return self.user.username

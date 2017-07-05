@@ -241,6 +241,9 @@ p {
     padding: 15px;
     margin: 0 auto;
 }
+.helptext {
+	display: none;
+}
 .author-box-class {
 	z-index: 10;
 }
@@ -250,10 +253,19 @@ p {
     width: 90px;
 	height: 90px !important;
 	box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
-
+}
+.author-box-avatar-in-profile {
+	position: relative;
+    margin: 20px auto;
+    width: 180px;
+	height: 180px !important;
+	box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 }
 .author-box-nickname {
 	text-align: center;
+}
+.author-box-nickname-in-profile {
+	margin-left: 20px;
 }
 .author-box-thanks {
 	text-align: center;
@@ -269,7 +281,12 @@ p {
 .info-box > td{
 	width: 33%;
 }
-
+.online {
+	position: absolute;
+    top: 17px;
+    right: 40px;
+	color: #999;
+}
 .modal-content {
 	background-color: #f7f7f7 !important;
 }

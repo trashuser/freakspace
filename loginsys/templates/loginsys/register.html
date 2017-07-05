@@ -1,0 +1,23 @@
+{% extends 'base_login.html' %}
+
+{% block register %}
+     <div class="container">
+
+        <form action="{% url 'register' %}" method="post" class="form-signin">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Мій новий простір:</h2>
+            <label for="inputText" class="sr-only">Нікнейм</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Нікнейм" required="" autofocus="" style="height: 46px;border-radius: 5px 5px 0 0;">
+            <label for="inputEmail" class="sr-only">Нікнейм</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required="" autofocus="" style="height: 46px;border-radius: 0;">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="password1" name="password1" class="form-control" placeholder="Пароль" required="" style="height: 46px;border-radius: 0;">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="password2" name="password2" class="form-control" placeholder="Повторіть пароль" required="" style="height: 46px;border-radius: 0;">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" style="border-radius: 0 0 5px 5px;">Створити</button>
+
+        </form>
+
+    </div>
+{% endblock %}

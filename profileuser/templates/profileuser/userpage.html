@@ -1,1 +1,36 @@
 {% extends 'base.html' %}
+
+{% block userpage %}
+    <div class="container">
+        <div class="row playlist-header">
+            <div class="col-md-3">
+                <div class="thumbnail author-box-class" id="author-box">
+                    <div style="background-image: url({{ this_user.avatar.url }});" class="author-box-avatar-in-profile bg-img-cover img-circle"></div>
+                    {#                    <img src="{{ post.author.avatar.url }}" class="author-box-avatar img-circle bg-img-cover" alt="">#}
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="col-md-9">
+                <div class="thumbnail">
+                    <h3 class="author-box-nickname-in-profile ">{{ this_user.user }}</h3>
+                            <h5>{{ this_user.pGitHub }}</h5>
+                            <h5>{{ this_user.pLinkedIn }}</h5>
+                            <h5>{{ this_user.pReplace }}</h5>
+                            <h5>{{ this_user.pCodeguida }}</h5>
+                            <h5>{{ this_user.pFacebook }}</h5>
+                        <div class="online">
+                            {% if Online %}
+                                <h4>Online</h4>
+                            {% else %}
+                                <h4>Остання активність: {{ loctime }}</h4>
+                            {% endif %}
+                        </div>
+                    <h5 class="author-box-nickname-in-profile">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                        <span id="author-like">{{ this_user.like }}</span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -5,10 +5,11 @@ from django.http import Http404, JsonResponse
 
 
 def output_publish(request):
+    update_activity(request)
     posts = Post.objects.order_by('-created_date')
     auth = False
     if request.user.is_authenticated():
-        user = UserProfile.objects.get(user_id=request.user)
+        user = UserProfile.objects.get(user_id=request.user.id)
         auth = True
     # posts.reverse()
     return render_to_response('blog/index.html', locals())
@@ -19,6 +20,7 @@ def output_publish(request):
 #     return render(request, 'blog/playlist.html', locals())
 
 def output_playlist(request, id):
+    update_activity(request)
     update_views_playlist()
     playlist = Playlist.objects.select_related().get(id=id)
     posts = playlist.post_set.all()
@@ -30,6 +32,7 @@ def output_playlist(request, id):
     return render(request, 'blog/playlist.html', locals())
 
 def output_single_pubish(request, id):
+    update_activity(request)
     post = Post.objects.get(id=id)
     post.views += 1
     post.save(update_fields=['views'])
@@ -64,6 +67,7 @@ def update_views_playlist():
 
 def add_ajax(request, id):
     if request.is_ajax():
+        update_activity(request)
 
         like = Post.objects.get(id=id)
         user = UserProfile.objects.get(user_id=request.user.id)
@@ -83,7 +87,13 @@ def add_ajax(request, id):
             like.like += 1
             like.save(update_fields=['like'])
             response = {'count-like': like.like, 'author-like': like.author.like}
-            print(response)
             return JsonResponse(response)
         else:
             return Http404
+
+
+def update_activity(request):
+    if request.user.is_authenticated():
+        user = UserProfile.objects.get(user_id=request.user.id)
+        user.last_activity = time.time()
+        user.save(update_fields=['last_activity',])

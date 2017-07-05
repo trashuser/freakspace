@@ -20,14 +20,20 @@
                         <img src="{% static 'blog/img/logo.png' %}" alt="" class="logo">
                     </a>
                     {% if not auth %}
-                        <a href="/auth/login" class="btn-login">Вхід</a>
+                        <a href="/auth/register/" class="btn-login">Реєстрація</a>
+                        <a href="/auth/login/" class="btn-login">Вхід</a>
                     {% else %}
-                        <a href="/auth/logout" class="btn-login">Вихід ({{ user }})</a>
+                        <a href="/auth/logout/" class="btn-login">Вихід</a>
+                        <a href="/user/id{{ user.user.id }}" class="btn-login">{{ user }}</a>
                     {% endif %}
 {#                </div>#}
             </div>
 		</nav>
     </header>
+
+    {% block userpage %}
+        {# profile user #}
+    {% endblock %}
 
     {% block login %}
         {# login page #}
