@@ -31,16 +31,17 @@
 		</nav>
     </header>
 
+    {% block slider %}
+        {# Slider #}
+    {% endblock %}
+
+
     {% block userpage %}
         {# profile user #}
     {% endblock %}
 
     {% block login %}
         {# login page #}
-    {% endblock %}
-
-    {% block slider %}
-        {# Slider #}
     {% endblock %}
 
     {% block tops %}
@@ -63,7 +64,7 @@
     {% endblock %}
 
 
-    <footer class="footer">
+    <footer class="footer" style="margin-top: 30px;">
 		<div class="container">
 			<span class="text-muted">Copyleft 2017</span>
 		</div>

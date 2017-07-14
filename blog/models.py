@@ -16,12 +16,13 @@ class UserProfile(models.Model):
     about_me = models.TextField(max_length=120, blank=True, null=True)
 
     pGitHub = models.CharField('GitHub', max_length=100, blank=True, null=True)
+    pGitLab = models.CharField('GitLab', max_length=100, blank=True, null=True)
     pLinkedIn = models.CharField('LinkedIn', max_length=100, blank=True, null=True)
     pReplace = models.CharField('Replace.org.ua', max_length=100, blank=True, null=True)
     pCodeguida = models.CharField('Codeguida', max_length=100, blank=True, null=True)
     pFacebook = models.CharField('Facebook', max_length=100, blank=True, null=True)
     pTwitter = models.CharField('Twitter', max_length=100, blank=True, null=True)
-
+    profiles = (pGitHub, pGitLab, pLinkedIn, pReplace, pCodeguida, pFacebook, pTwitter)
     last_activity = models.IntegerField('Остання активність', default=time.time)
 
     def __str__(self):
@@ -34,6 +35,7 @@ class Playlist(models.Model):
     main_img = models.ImageField(null=True, blank=True, upload_to='playlist')
     views = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
+    # author_user = models.ForeignKey('auth.User')
     author = models.ForeignKey('UserProfile')
 
     def __str__(self):
@@ -45,11 +47,13 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=70)
-
+    numb = models.IntegerField(default=0)
     def __str__(self):
         return self.name
+
 
 class Post(models.Model):
     author = models.ForeignKey('UserProfile')
@@ -80,12 +84,13 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-# class Comment(models.Model):
-#     post = models.ForeignKey(Post)
-#     author = models.ForeignKey(UserProfile)
-#     content = models.TextField('Коментар')
-#     pub_date = models.DateTimeField('Дата коментування', default=timezone.now)
-#
-#     def __str__(self):
-#         return  self.content[0:200]
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post)
+    author = models.ForeignKey(UserProfile)
+    content = models.TextField('Коментар')
+    pub_date = models.DateTimeField('Дата коментування', default=timezone.now)
+
+    def __str__(self):
+        return  self.content[0:200]
 

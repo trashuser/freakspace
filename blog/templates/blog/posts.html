@@ -2,40 +2,13 @@
 {% load staticfiles %}
 
 {% block playlist %}
-    <div class="container">
-        <div class="row playlist-header">
-            <div class="col-md-9">
-                <div class="thumbnail">
-                    <div style="background-image: url({{ playlist.main_img.url }});" class="playlist-img bg-img-cover"></div>
-                    <h2 class="tops">{{ playlist }}</h2>
-                    <button type="button" class="btn btn-description-playlist" alt="" data-toggle="tooltip" data-placement="bottom" title="{{ playlist.description }}">Опис</button>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail author-box-class" id="author-box">
-                    <a href="/user/id{{ playlist.author.user.id }}">
-                        <div style="background-image: url({{ playlist.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
-                        <h4 class="author-box-nickname ">{{ playlist.author }}</h4>
-                    </a>
-                    <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h5>
-                    <div class="author-box-info">
-                        <table class="author-box-info-table">
-                            <tr align="center">
-                                <td><span class="glyphicon glyphicon-thumbs-up c777"></span><br>{{ playlist.like }}</td>
-                                <td><span class="glyphicon glyphicon-eye-open c777"></span><br>{{ playlist.views }}</td>
-                                <td><span class="glyphicon glyphicon-comment c777"></span><br>{# comments #}</td>
-                            </tr>
-                        </table>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
     <div class="container posts-block">
         <div class="row">
+            <h2 class="tops">#{{ title }}</h2>
             {% for post in posts %}
 
             {#        {% for tag in post.tags.all %}#}

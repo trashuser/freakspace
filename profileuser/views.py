@@ -6,11 +6,13 @@ import time
 
 def out_profile_user(request, id):
     # try:
+        min_5 = 300 # 300 second = 5 min
+
         update_activity(request)
         user = models.UserProfile.objects.get(user_id=request.user.id)
         this_user = models.UserProfile.objects.get(user_id=id)
         # print(models.timezone.now().second - user.last_activity.second)
-        if time.time() - this_user.last_activity <= 300:
+        if time.time() - this_user.last_activity <= min_5:
             Online = True
         else:
             loctime = time.strftime('%d.%m %H:%M:%S', time.localtime(this_user.last_activity))
@@ -18,6 +20,9 @@ def out_profile_user(request, id):
             auth = True
             if int(request.user.id) == int(id):
                 its_me = True
+        print(this_user.user_id)
+        playlists = models.Playlist.objects.filter(author=this_user)
+        posts = models.Post.objects.filter(author=this_user)
         return render(request, 'profileuser/userpage.html', locals())
     # except:
     #     return render(request, 'loginsys/register.html')

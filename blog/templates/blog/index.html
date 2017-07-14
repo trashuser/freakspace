@@ -2,11 +2,97 @@
 {% load staticfiles %}
 
 {% block slider %}
-{# Slider #}
+    <div id="myCarousel" class="carousel slide hidden-xs" data-interval="5000" data-ride="carousel">
+
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+
+        </ol>
+        <!-- Слайды карусели -->
+        <div class="carousel-inner">
+            <div class="active item">
+                <!-- <h2>Слайд №1</h2> -->
+                <img src="{{ active_slide.post_img.url }}" alt="" class="slide">
+                <div class="carousel-caption">
+                    <h3>{{ active_slide.title }}</h3>
+{#                    <p></p>#}
+                    <a href="{% url 'out_single_post' active_slide.id %}" class="btn btn-primary">Перейти до статті</a>
+                </div>
+            </div>
+            {% for slide in carousel %}
+                <div class="item">
+                    <!-- <h2>Слайд №1</h2> -->
+                    <img src="{{ slide.post_img.url }}" alt="" class="slide">
+                    <div class="carousel-caption">
+                        <h3>{{ slide.title }}</h3>
+{#                        <p></p>#}
+                        <a href="{% url 'out_single_post' slide.id %}" class="btn btn-primary">Перейти до статті</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Навигация для карусели -->
+        <!-- Кнопка, осуществляющая переход на предыдущий слайд с помощью атрибута data-slide="prev" -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <!-- Кнопка, осуществляющая переход на следующий слайд с помощью атрибута data-slide="next" -->
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
 {% endblock %}
 
 {% block tops %}
-{# TOP-tags and TOP playlist #}
+    <div class="container">
+		<div class="row">
+
+			<!-- TOP TAGS -->
+			<div class="col-md-6  ">
+				<h2 class="tops">Топ-теги</h2>
+				<ul class="nav nav-pills" role="tablist">
+                    {% for tag in top_tags %}
+					    <li role="presentation"><a href="{% url 'output_tags' tag.name %}">#{{ tag.name }} <span class="badge">{{ tag.numb }}</span></a></li>
+					{% endfor %}
+				</ul>
+			</div>
+
+			<!-- TOP PLAYLIST -->
+			<!-- For XS and SM display -->
+			<div class="col-md-12 hidden-md hidden-lg">
+				<h2 class="tops"><a href="#">Топ плейлисти</a></h2>
+				<ul class="nav nav-pills" role="tablist">
+					{% for playlist in top_playlist %}
+                        <li role="presentation"><a href="{% url 'output_playlist' playlist.id %}">{{ playlist.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+
+			<!-- For MD and LG display -->
+			<div class="col-md-6 hidden-xs hidden-sm">
+				<h2 class="tops">
+					<a type="button" class="open-modal hidden-xs hidden-sm">Топ плейлисти</a>
+					<a href="#" class="hidden-lg hidden-md">Топ плейлисти</a>
+				</h2>
+				<!-- <input type="button" class="btn btn-primary open-modal" value="Открыть модальное окно"> -->
+				<!-- <div class="container"> -->
+				<div class="row">
+                    {% for playlist in top_playlist %}
+                        <div class="col-md-3">
+                            <a href="{% url 'output_playlist' playlist.id %}" >
+                                <div style="background-image: url({{ playlist.main_img.url }})" class="img-rounded top-playlist bg-img-cover" alt="" data-toggle="tooltip" data-placement="bottom" title="{{ playlist.name }}"></div>
+                            </a>
+                        </div>
+                    {% endfor %}
+				</div>
+			</div>
+
+		</div>
+		<hr>
+	</div>
 {% endblock tops %}
 
 {% block blog %}
@@ -22,7 +108,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="thumbnail post">
                         <div class='author-thumbnail'>
-                            <a href="/user/id{{ post.author.id }}">
+                            <a href="/user/id{{ post.author.user.id }}">
                                 <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
                                 <h5 class="nick-thumbnail">{{ post.author }}</h5>
                             </a>

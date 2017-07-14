@@ -9,12 +9,10 @@
     <div class="container">
         <div class="header-post">
             <h1 class="name-post-in-post">{{ post.title }}</h1>
-            <ul class="nav nav-pills tag-in-post" rsole="tablist" style="z-index: 1">
-                <li role="presentation"><a href="#">#arduino <span class="badge">52</span></a></li>
-                <li role="presentation" ><a href="#">#3Dprint <span class="badge">42</span></a></li>
-                <li role="presentation"><a href="#">#arduino-uno <span class="badge">36</span></a></li>
-                <li role="presentation"><a href="#">#arduino-mega <span class="badge">8</span></a></li>
-                <li role="presentation"><a href="#">#extruder</a></li>
+            <ul class="nav nav-pills tag-in-post" role="tablist" style="z-index: 1">
+                {% for tag in tags %}
+                    <li role="presentation"><a href="{% url 'output_tags' tag.name %}">#{{ tag }} <span class="badge">{{ tag.numb }}</span></a></li>
+                {% endfor %}
             </ul>
         </div>
     </div>
@@ -22,11 +20,35 @@
         <div class="row">
             <div class="col-md-9">
                 <p>{{ post.text }}</p>
-{#                {% render_comment_form for post %}#}
+                <hr>
+                <h2 class="tops" id="comment">Коментарі</h2>
+                {% if comments %}
+                    <table>
+                        {% for comment in comments %}
+                            <tr class="comment-tr">
+                                <td><div style="background-image: url({{ comment.author.avatar.url }});" class="comment-box-avatar bg-img-cover img-circle"></div></td>
+                                <td style="padding: 10px 20px; width: 100%">
+                                    <h4>{{ comment.author }}&nbsp;&nbsp;&nbsp;<span style="color: #aaa">[{{ comment.pub_date }}]</span></h4>
+                                    <p>{{ comment.content }}</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <h3>Коментарі відсутні</h3>
+                {% endif %}
+                {% if auth %}
+                    <form action="{% url 'add_comment' post.id %}" method="post" class="">
+                        {% csrf_token %}
+                        <hr>
+                        <textarea name="comment" cols="100" rows="3" class="comment-area" placeholder="Ваш коментар.."></textarea>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Прокоментувати</button>
+                    </form>
+                {% endif %}
             </div>
             <div class="col-md-3">
                 <div class="thumbnail author-box-class" id="author-box">
-                    <a href="/user/id{{ post.author.id }}">
+                    <a href="/user/id{{ post.author.user.id }}">
                         <div style="background-image: url({{ post.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
                         <h4 class="author-box-nickname ">{{ post.author }}</h4>
                     </a>
