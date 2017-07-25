@@ -1,0 +1,145 @@
+/* BUTTONS SELECT COLOR PLAYLIST*/
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+
+    .container-radiobutton{
+      display: block;
+      position: relative;
+      /*margin: 40px auto;*/
+      height: 100px;
+      width: 500px;
+      /*padding: 20px;*/
+    }
+
+    h2 {
+        color: #AAAAAA;
+    }
+
+    .container-radiobutton ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+        overflow: auto;
+    }
+
+    ul li{
+      color: #AAAAAA;
+      display: inline;
+      position: relative;
+      float: left;
+      height: 100px;
+    }
+
+    ul li input[type=radio]{
+      position: absolute;
+      visibility: hidden;
+    }
+
+    ul li label{
+      display: block;
+      position: relative;
+      font-weight: 300;
+      font-size: 1.35em;
+    	padding: 19px 22px 25px 29px;
+		margin: 10px auto;
+      height: 30px;
+      z-index: 9;
+      cursor: pointer;
+      -webkit-transition: all 0.25s linear;
+    }
+
+    ul li:hover label{
+        color: #FFFFFF;
+    }
+
+    ul li .check{
+      display: block;
+      position: absolute;
+	  height: 40px;
+	width: 40px;
+      top: 0    ;
+        z-index: 5;
+        transition: border .25s linear;
+        -webkit-transition: border .25s linear;
+    }
+
+    ul li:hover .check {
+      border: 5px solid #FFFFFF;
+    }
+
+    ul li .check::before {
+      display: block;
+      position: absolute;
+        content: '';
+      border-radius: 100%;
+      height: 15px;
+      width: 15px;
+      top: 5px;
+        left: 5px;
+      margin: auto;
+        transition: background 0.25s linear;
+        -webkit-transition: background 0.25s linear;
+    }
+
+    input[type=radio]:checked ~ .check {
+      border: 5px solid #0DFF92;
+    }
+
+    input[type=radio]:checked ~ .check::before{
+      background: #FFF;
+    }
+
+    input[type=radio]:checked ~ label{
+      color: #0DFF92;
+    }
+
+    .signature {
+        margin: 10px auto;
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    .signature p{
+        text-align: center;
+        font-family: Helvetica, Arial, Sans-Serif;
+        font-size: 0.85em;
+        color: #AAAAAA;
+    }
+
+    .signature .much-heart{
+        display: inline-block;
+        position: relative;
+        margin: 0 4px;
+        height: 10px;
+        width: 10px;
+        background: #AC1D3F;
+        border-radius: 4px;
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .signature .much-heart::before,
+    .signature .much-heart::after {
+          display: block;
+      content: '';
+      position: absolute;
+      margin: auto;
+      height: 10px;
+      width: 10px;
+      border-radius: 5px;
+      background: #AC1D3F;
+      top: -4px;
+    }
+
+    .signature .much-heart::after {
+        bottom: 0;
+        top: auto;
+        left: -4px;
+    }
+
+    .signature a {
+        color: #AAAAAA;
+        text-decoration: none;
+        font-weight: bold;
+    }

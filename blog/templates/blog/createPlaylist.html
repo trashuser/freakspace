@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block createPlaylist %}
+    <link rel="stylesheet" href="{% static 'blog/css/select-color.css' %}">
+    <form action="{% if id_playlist %}
+                      {% url 'commit_edit_playlist' id_playlist %}
+                  {% else %}
+                      {% url 'commit_playlist' %}
+                  {% endif %}" method="post" class="form-write-post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <h2 class="tops">Створити новий плейлист</h2>
+            <div class="col-md-6">
+                <h4>Назва плейлиста:</h4>
+                <input type="text" class="create-playlist-name" name="name" placeholder='Наприклад, "Популярно про 3D принтери"' value="{{ val_name }}">
+            </div>
+            <div class="col-md-6">
+                <div class="container-radiobutton">
+                    <h4>Виберіть фоновий колір плейлиста:</h4>
+                    <ul>
+                        {% for color in colors %}
+                            <li>
+                                <input type="radio" id="{{ color }}-option" name="selectbgcolor" value="#{{ color }}"
+                                    {% if color == selected_color %} checked {% endif %}>
+                                <label for="{{ color }}-option"></label>
+                                <div class="check" style="border: 7px solid #{{ color }}; background: #{{ color }}"><div class="inside"></div></div>
+                            </li>
+                        {% endfor %}
+                        {# GREEN #}
+{#                        <li>#}
+{#                            <input type="radio" id="g-option" name="selectbgcolor" value="#14dc52">#}
+{#                            <label for="g-option"></label>#}
+{##}
+{#                            <div class="check" style="border: 7px solid #14dc52; background: #14dc52"><div class="inside"></div></div>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <input type="radio" id="gg-option" name="selectbgcolor" value="#69a02d">#}
+{#                            <label for="gg-option"></label>#}
+{#                            <div class="check" style="border: 7px solid #69a02d; background: #69a02d"></div>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <input type="radio" id="ggg-option" name="selectbgcolor" value="#175d0b">#}
+{#                            <label for="ggg-option"></label>#}
+{#                            <div class="check" style="border: 7px solid #175d0b; background: #175d0b"></div>#}
+{#                        </li>#}
+{##}
+                        {# BLUE #}
+{#                        <li>#}
+{#                            <input type="radio" id="b-option" name="selectbgcolor" value="#0d91bb">#}
+{#                            <label for="b-option"></label>#}
+{#                            <div class="check" style="border: 7px solid #0d91bb; background: #0d91bb"><div class="inside"></div></div>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <input type="radio" id="bb-option" name="selectbgcolor" value="#2f6475" checked>#}
+{#                            <label for="bb-option"></label>#}
+{#                            <div class="check" style="border: 7px solid #2f6475; background: #2f6475"><div class="inside"></div></div>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <input type="radio" id="bbb-option" name="selectbgcolor" value="#0d3744">#}
+{#                            <label for="bbb-option"></label>#}
+{#                            <div class="check" style="border: 7px solid #0d3744; background: #0d3744"><div class="inside"></div></div>#}
+{#                        </li>#}
+{##}
+                        {# ORANGE #}
+{#                        <li>#}
+{#                            <input type="radio" id="o-option" name="selectbgcolor" value="#e0d123">#}
+{#                            <label for="o-option"></label>#}
+{#                            <div class="check" style="border: 7px solid #e0d123; background: #e0d123"><div class="inside"></div></div>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <input type="radio" id="oo-option" name="selectbgcolor" value="#e06923">#}
+{#                            <label for="oo-option"></label>#}
+{#                            <div class="check" style="border: 7px solid #e06923; background: #e06923"><div class="inside"></div></div>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <input type="radio" id="ooo-option" name="selectbgcolor" value="#e04623">#}
+{#                            <label for="ooo-option"></label>#}
+{#                            <div class="check" style="border: 7px solid #e04623; background: #e04623"><div class="inside"></div></div>#}
+{#                        </li>#}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <textarea name="description" id="" cols="30" rows="6" style="width: 100%;border-radius: 7px;padding: 5px;"
+                          placeholder="Опис. Напишіть чим ви будете займатись і що будете публікувати:)">{{ val_description.strip }}
+                </textarea>
+            </div>
+            <div class="col-md-6">
+                {{ form.as_p }}
+            </div>
+            {% if id_playlist %}
+                <div class="col-md-6">
+                    <img src="{{ playlist.main_img.url }}" alt=""style="max-height:200px; margin-bottom: 20px;border-radius: 7px;">
+                </div>
+            {% endif %}
+            <div class="col-md-12">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Створити</button>
+            </div>
+        </div>
+    </form>
+    <p></p>
+{% endblock %}

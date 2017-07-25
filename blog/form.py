@@ -1,6 +1,12 @@
 from django.forms import ModelForm
-from .models import Comment
+from .models import Post, Playlist
 
-# class Comment(ModelForm):
-#     class Meta:
-#         model = Comment
+class WritePost(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['post_img',]
+
+class CreatePlaylist(ModelForm):
+    class Meta:
+        model = Playlist
+        fields = ['main_img']

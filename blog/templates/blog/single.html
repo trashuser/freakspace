@@ -8,10 +8,17 @@
     {% endif %}
     <div class="container">
         <div class="header-post">
-            <h1 class="name-post-in-post">{{ post.title }}</h1>
+            <h1 class="name-post-in-post">
+                {{ post.title }}
+                {% if is_admin or you_post %}
+                    <a href="{% url 'edit_post' post.id %}" class="edit_post">Редагувати</a>
+                {% endif %}
+            </h1>
             <ul class="nav nav-pills tag-in-post" role="tablist" style="z-index: 1">
                 {% for tag in tags %}
-                    <li role="presentation"><a href="{% url 'output_tags' tag.name %}">#{{ tag }} <span class="badge">{{ tag.numb }}</span></a></li>
+                    <li role="presentation">
+                        <a href="{% url 'output_tags' tag.name %}" style="transition: 0.3s;">#{{ tag }} <span class="badge">{{ tag.numb }}</span></a>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
@@ -19,16 +26,20 @@
     <div class="container single-post">
         <div class="row">
             <div class="col-md-9">
-                <p>{{ post.text }}</p>
+                <p>{{ post.text|safe }}</p>
                 <hr>
                 <h2 class="tops" id="comment">Коментарі</h2>
                 {% if comments %}
                     <table>
                         {% for comment in comments %}
                             <tr class="comment-tr">
-                                <td><div style="background-image: url({{ comment.author.avatar.url }});" class="comment-box-avatar bg-img-cover img-circle"></div></td>
+                                <td>
+                                    <a href="{% url 'profile_user' comment.author.id%}">
+                                        <div style="background-image: url({{ comment.author.avatar.url }});" class="comment-box-avatar bg-img-cover img-circle"></div>
+                                    </a>
+                                </td>
                                 <td style="padding: 10px 20px; width: 100%">
-                                    <h4>{{ comment.author }}&nbsp;&nbsp;&nbsp;<span style="color: #aaa">[{{ comment.pub_date }}]</span></h4>
+                                    <h4><a href="{% url 'profile_user' comment.author.id%}">{{ comment.author }}</a>&nbsp;&nbsp;&nbsp;<span style="color: #aaa">[{{ comment.pub_date }}]</span></h4>
                                     <p>{{ comment.content }}</p>
                                 </td>
                             </tr>
@@ -48,7 +59,7 @@
             </div>
             <div class="col-md-3">
                 <div class="thumbnail author-box-class" id="author-box">
-                    <a href="/user/id{{ post.author.user.id }}">
+                    <a href="/user/id{{ post.author.id }}">
                         <div style="background-image: url({{ post.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
                         <h4 class="author-box-nickname ">{{ post.author }}</h4>
                     </a>
@@ -63,7 +74,7 @@
                                     {% if auth %}
                                         {% if not push_like and not you_post%}
         {#                                        <span id="like_this" class="glyphicon glyphicon-thumbs-up c222"></span>#}
-                                            <i id="like_this" class="fa fa-thumbs-o-up c222 cursorPointer" aria-hidden="true"></i>
+                                            <i id="like_this" class="fa fa-thumbs-o-up c222 cursorPointer" aria-hidden="true" style="transition: 0.5s"></i>
                                             <div id="like">{{ post.like }}</div>
                                         {% elif push_like %}
         {#                                        <span class="glyphicon glyphicon-thumbs-up c777"></span>#}
@@ -81,13 +92,56 @@
                                 <td><span class="glyphicon glyphicon-eye-open c777"></span>
                                     <br>{{ post.views }}
                                 </td>
-                                <td><span class="glyphicon glyphicon-comment c777"></span><br>{# comments #}</td>
+                                <td><span class="glyphicon glyphicon-comment c777"></span><br>{{ comments.numb }}</td>
                             </tr>
                         </table>
 
                     </div>
                 </div>
                 <!-- </div> -->
+                {% if playlist %}
+
+                    <div class="thumbnail">
+                        <a href="{% url 'output_playlist' playlist.id%}">
+                            <div style="background-image: url({{ playlist.main_img.url }});
+                                    height: 160px; position: relative; border-radius: 5px" class="bg-img-cover" alt="">
+                                <h3 class="playlist-name-in-post" style="width: 100%; background: {{ playlist.color }}">{{ playlist }}</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="thumbnail">
+                        {% for this_post in post_in_playlists %}
+                            {% if this_post == post %}
+                                <div style="position: relative">
+                                    <div style="background-image: url({{ this_post.post_img.url }}); height: 60px;"
+                                         class="bg-img-cover" alt="">
+                                        <h5 class="post-name-in-playlist-block">
+                                            {{ this_post }}
+                                        </h5>
+                                    </div>
+                                    <span>
+                                        <i class="fa fa-angle-left" aria-hidden="true" style="    position: absolute;
+                                        top: 0px;
+                                        right: 0px;
+                                        font-size: 45px;
+                                        background: #fff;
+                                        height: 60px;
+                                        padding: 7px;"></i>
+                                    </span>
+                                </div>
+                            {% else %}
+                                <a href="{% url 'out_single_post' this_post.id %}">
+                                    <div style="background-image: url({{ this_post.post_img.url }}); height: 60px;"
+                                         class="bg-img-cover" alt="">
+                                        <h5 class="post-name-in-playlist-block">{{ this_post }}</h5>
+                                    </div>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+
+                {% endif %}
             </div>
         </div>
     </div>

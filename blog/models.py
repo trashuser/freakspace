@@ -2,7 +2,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-import time
+import time, random
 from django.contrib import admin
 # from django_markdown.widgets import MarkdownWidget
 
@@ -11,8 +11,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     email = models.CharField(max_length=70, blank=True, null=True)
     like = models.IntegerField(default=50)
-    avatar = models.ImageField(upload_to='user_avatar', blank=True, null=True)
-
+    avatar = models.ImageField(upload_to='user_avatar', blank=True, null=True,
+                               default='default'+str(random.randrange(0, 14, 1))+'.png')
+    # age = models.DateField('День народження')
     about_me = models.TextField(max_length=120, blank=True, null=True)
 
     pGitHub = models.CharField('GitHub', max_length=100, blank=True, null=True)
@@ -32,11 +33,12 @@ class UserProfile(models.Model):
 class Playlist(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField(max_length=350)
-    main_img = models.ImageField(null=True, blank=True, upload_to='playlist')
+    main_img = models.ImageField('Лого плейлиста', null=True, blank=True, upload_to='playlist')
     views = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
-    # author_user = models.ForeignKey('auth.User')
+    comments = models.IntegerField(default=0)
     author = models.ForeignKey('UserProfile')
+    color = models.CharField(max_length=7, default='#29424a')
 
     def __str__(self):
         return self.name
@@ -65,11 +67,10 @@ class Post(models.Model):
     published_date = models.DateTimeField(
             blank=True, null=True)
 
-    # category = models.ForeignKey(Category)
     playlist = models.ForeignKey(Playlist, blank=True, null=True)
     tags = models.ManyToManyField(Tag)
 
-    post_img = models.ImageField(null=True, blank=True, upload_to='post')
+    post_img = models.ImageField('Головне зображення',null=True, blank=True, upload_to='post',)
 
     views = models.IntegerField(default=0)
     like = models.IntegerField(default=0)

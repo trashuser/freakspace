@@ -18,7 +18,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="thumbnail post">
                         <div class='author-thumbnail'>
-                            <a href="/user/id{{ playlist.author.user.id }}">
+                            <a href="/user/id{{ playlist.author.id }}">
                                 <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
                                 <h5 class="nick-thumbnail">{{ post.author }}</h5>
                             </a>
@@ -34,14 +34,25 @@
                             {% endif %}
         {#            {% static 'blog/img/FSworld-famous.png' %}#}
                         {% if post.playlist %}
+                            <style>
+                                .name-playlist-{{ post.id }} {
+                                    background-color: {{ post.playlist.color }};
+                                }
+                                .name-playlist-{{ post.id }}:hover {
+                                    background-color: #fff;
+                                    color: {{ post.playlist.color }};
+                                }
+                            </style>
                             <a href="{% url 'output_playlist' post.playlist_id %}" class="name-playlist-thumbnail-block">
-                                <h5><span class="name-playlist-thumbnail">{{ post.playlist }}</span></h5>
+                                <h5><span class="name-playlist-thumbnail name-playlist-{{ post.id }}">
+                                    {{ post.playlist }}
+                                </span></h5>
                             </a>
                         {% endif %}
                         <div class="post-bottom-panel">
-                            <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;
-                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;
-{#                            <span class="glyphicon glyphicon-comment c777"></span> 3#}
+                            <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-comment c777"></span> {{ post.comments_numb }}
                         </div>
                         <a href="{% url 'out_single_post' post.id %}">
                             <h4 class="name-post">{{ post.title }}</h4>

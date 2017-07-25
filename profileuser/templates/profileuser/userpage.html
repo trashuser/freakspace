@@ -88,7 +88,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 hidden-md hidden-lg">
+            <div class="col-sm-12 hidden-md hidden-lg">
 				<h2 class="tops">Плейлисти користувача:</h2>
 				<ul class="nav nav-pills" role="tablist">
                     {% for playlist in playlists %}
@@ -98,13 +98,13 @@
 			</div>
 
 			<!-- For MD and LG display -->
-			<div class="col-md-6 hidden-xs hidden-sm">
+			<div class="col-md-3 hidden-xs hidden-sm">
 				<h2 class="tops">
-                    Плейлисти користувача
+                    Плейлисти
 				</h2>
 				<div class="row">
 					{% for playlist in playlists %}
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <a href="/playlist/id{{ playlist.id }}" >
                                 <div style="background-image: url({{ playlist.main_img.url }})" class="img-rounded top-playlist bg-img-cover" alt="" data-toggle="tooltip" data-placement="bottom" title="{{ playlist.name }}"></div>
                             </a>
@@ -113,52 +113,56 @@
 				</div>
 			</div>
 
-        </div>
-    </div>
-
-    <div class="container posts-block">
-        <div class="row">
-            <h2 class="tops">Публікації користувача</h2>
-            {% for post in posts %}
-
-            {#        {% for tag in post.tags.all %}#}
-            {#            <a href="{% url 'output_tags' tag %}">#{{ tag }}</a>,#}
-            {#        {% endfor %}#}
-
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <div class="thumbnail post">
-                        <div class='author-thumbnail'>
-                            <a href="/user/id{{ post.author.user.id }}">
-                                <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
-                                <h5 class="nick-thumbnail">{{ post.author }}</h5>
-                            </a>
-                            <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h6>
-                        </div>
-
-                            {% if post.post_img %}
-                                <a href="{% url 'out_single_post' post.id %}">
-                                    <div style="background-image: url({{ post.post_img.url }});" class="post-img bg-img-cover"></div>
+            <div class="col-md-9 posts-block">
+                <h2 class="tops">Публікації користувача</h2>
+                {% for post in posts %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="thumbnail post">
+                            <div class='author-thumbnail'>
+                                <a href="/user/id{{ post.author.id }}">
+                                    <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
+                                    <h5 class="nick-thumbnail">{{ post.author }}</h5>
                                 </a>
-                            {% else %}
-                                <p class="post-text bg-img-cover">{{ post.text }}</p>
-                            {% endif %}
-        {#            {% static 'blog/img/FSworld-famous.png' %}#}
-                        {% if post.playlist %}
+                                <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h6>
+                            </div>
+
+                                {% if post.post_img %}
+                                    <a href="{% url 'out_single_post' post.id %}">
+                                        <div style="background-image: url({{ post.post_img.url }});" class="post-img bg-img-cover"></div>
+                                    </a>
+                                {% else %}
+                                    <p class="post-text bg-img-cover">{{ post.text }}</p>
+                                {% endif %}
+            {#            {% static 'blog/img/FSworld-famous.png' %}#}
+                            {% if post.playlist %}
+                                <style>
+                                .name-playlist-{{ post.id }} {
+                                    background-color: {{ post.playlist.color }};
+                                }
+                                .name-playlist-{{ post.id }}:hover {
+                                    background-color: #fff;
+                                    color: {{ post.playlist.color }};
+                                }
+                            </style>
                             <a href="{% url 'output_playlist' post.playlist_id %}" class="name-playlist-thumbnail-block">
-                                <h5><span class="name-playlist-thumbnail">{{ post.playlist }}</span></h5>
+                                <h5><span class="name-playlist-thumbnail name-playlist-{{ post.id }}">
+                                    {{ post.playlist }}
+                                </span></h5>
                             </a>
-                        {% endif %}
-                        <div class="post-bottom-panel">
-                            <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;
-                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;
-{#                            <span class="glyphicon glyphicon-comment c777"></span> 3#}
+                            {% endif %}
+                            <div class="post-bottom-panel">
+                                <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;
+                                <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;
+    {#                            <span class="glyphicon glyphicon-comment c777"></span> 3#}
+                            </div>
+                            <a href="{% url 'out_single_post' post.id %}">
+                                <h4 class="name-post">{{ post.title }}</h4>
+                            </a>
                         </div>
-                        <a href="{% url 'out_single_post' post.id %}">
-                            <h4 class="name-post">{{ post.title }}</h4>
-                        </a>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+
 {% endblock %}

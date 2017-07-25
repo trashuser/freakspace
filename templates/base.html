@@ -24,7 +24,9 @@
                         <a href="/auth/login/" class="btn-login">Вхід</a>
                     {% else %}
                         <a href="/auth/logout/" class="btn-login">Вихід</a>
-                        <a href="/user/id{{ user.user.id }}" class="btn-login">{{ user }}</a>
+                        <a href="{% url 'create_playlist' %}" class="btn-login">Створити плейлист</a>
+                        <a href="{% url 'write_post' %}" class="btn-login">Створити запис</a>
+                        <a href="{% url 'profile_user' user.id %}" class="btn-login">{{ user }}</a>
                     {% endif %}
 {#                </div>#}
             </div>
@@ -63,6 +65,12 @@
         {# out all post in playlist #}
     {% endblock %}
 
+    {% block writePost %}
+    {% endblock %}
+
+    {% block createPlaylist %}
+    {% endblock %}
+
 
     <footer class="footer" style="margin-top: 30px;">
 		<div class="container">
@@ -71,13 +79,17 @@
 	</footer>
 
 
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="{% static 'blog/lib/jquery-1.10.2/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'blog/lib/jquery-1.10.2/jquery-1.10.2.min.js' %}"></script>
+{#    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>#}
+{#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>#}
+
+    {#    <script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>#}
+{#    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>#}
     <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/bootstrap.js' %}"></script>
     <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/bootstrap.min.js'%}"></script>
-    <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/common.js' %}"></script>
+{#    <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/common.js' %}"></script>#}
     <script>
-{#        var content = document.getElementById("like");#}
         var url = document.createElement('a');
         url.href = document.URL;
         $(document).ready(function () {
@@ -96,5 +108,6 @@
             });
         });
     </script>
+
 </body>
 </html>
