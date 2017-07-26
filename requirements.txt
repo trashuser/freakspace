@@ -1,2 +1,13 @@
 Django==1.11.2
+django-contrib-comments==1.8.0
+django-filebrowser==3.7.2
+django-grappelli==2.8.3
+django-markdown==0.8.4
+django-markdownx==2.0.21
+django-tinymce==2.6.0
+django-tinymce-4==0.0.18
+Markdown==2.6.8
+olefile==0.44
+Pillow==4.1.1
+psycopg2==2.7.1
 pytz==2017.2
