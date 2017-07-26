@@ -16,7 +16,6 @@ blog/migrations/0041_auto_20170720_2310.py
 blog/migrations/0042_auto_20170720_2315.py
 blog/migrations/0043_auto_20170725_2112.py
 blog/migrations/__pycache__/
-blog/templates/blog/write.html
 freakspace/__pycache__/
 loginsys/__pycache__/
 loginsys/migrations/__pycache__/
