@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block writePost %}
+    <form action="{% if is_edit %}{% url 'edit_post_commit' id_post%}{% else %}{% url 'add_post' %}{% endif %}" method="post" class="form-write-post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="title" class="write-post-field" placeholder="Загловок" value="{{ val_title }}">
+        <hr>
+        <textarea class="tinymce" name="text" >{{ val_text }}</textarea>
+        <hr>
+        <table width="100%">
+            <tr>
+                <td><label for="id_tags">Теги (вписуйте в рядочок через кому):</label></td>
+                <td width="265px;"><label for="id_playlist">Плейлист (опціонально):</label></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="id_tags" name="tags" class="write-post-field" placeholder="Наприклад: extruder, штепсіль, комбайнери_на_городі" value="{{ tag_val }}"></td>
+                <td>
+                    <select name="playlist" id="id_playlist" class="playlist-select">
+                        <option value="" >----------</option>
+                        {% for playlist in playlists %}
+                            <option value="{{ playlist.id }}" {% if playlist.selected %}selected{% endif %}>{{ playlist.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form.as_p }}</td>
+                <td><button class="btn btn-lg btn-primary btn-block" type="submit">Опублікувати</button></td>
+
+            </tr>
+        </table>
+    </form>
+
+
+{#    <script type="text/javascript" src="{% static "blog/plugin/js/jquery.min.js" %}"></script>#}
+    <script type="text/javascript" src="{% static "blog/plugin/tinymce/tinymce.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "blog/plugin/tinymce/init-tinymce.js" %}"></script>
+{% endblock %}
