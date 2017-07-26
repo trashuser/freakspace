@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block userpage %}
+    <div class="container">
+        <div class="row playlist-header">
+            <div class="col-md-3">
+                <div class="thumbnail author-box-class" id="author-box">
+                    <div style="background-image: url({{ this_user.avatar.url }});" class="author-box-avatar-in-profile bg-img-cover img-circle"></div>
+                    {#                    <img src="{{ post.author.avatar.url }}" class="author-box-avatar img-circle bg-img-cover" alt="">#}
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="col-md-9">
+                <div class="thumbnail">
+                    <h3 class="author-box-nickname-in-profile ">{{ this_user.user }}</h3>
+                    <div class="online">
+                        {% if Online %}
+                            <h4>Online</h4>
+                        {% else %}
+                            <h4>Остання активність: {{ loctime }}</h4>
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <h4 class="margin-left-in-profile namefield">Отримані подяки за працю:
+                        <span class="glyphicon glyphicon-thumbs-up c222"></span>
+                        <span id="author-like" class="c222">{{ this_user.like }}</span>
+                    </h4>
+                    <table class="margin-left-in-profile ">
+                        <tr>
+                            <hr>
+                            <td><h4 class="namefield">Користувач на інших сайтах:</h4></td>
+                            {% if this_user.pGitHub %}
+                                <td class="td-social-icon">
+                                    <a href="{{ this_user.pGitHub}}" target="_blank">
+                                        <img src="{% static 'blog/social-img/GitHub.png' %}" alt="" class="social-icon">
+                                    </a>
+                                </td>
+                            {% endif %}
+                            {% if this_user.pGitLab %}
+                                <td class="td-social-icon">
+                                    <a href="{{ this_user.pGitLab}}" target="_blank">
+                                        <img src="{% static 'blog/social-img/GitLab.png' %}" alt="" class="social-icon">
+                                    </a>
+                                </td>
+                            {% endif %}
+                            {% if this_user.pLinkedIn %}
+                                <td class="td-social-icon">
+                                    <a href="{{ this_user.pLinkedIn}}" target="_blank">
+                                        <img src="{% static 'blog/social-img/linkedIn.png' %}" alt="" class="social-icon">
+                                    </a>
+                                </td>
+                            {% endif %}
+                            {% if this_user.pReplace %}
+                                <td class="td-social-icon">
+                                    <a href="{{ this_user.pReplace}}" target="_blank">
+                                        <img src="{% static 'blog/social-img/replace.png' %}" alt="" class="social-icon">
+                                    </a>
+                                </td>
+                            {% endif %}
+                            {% if this_user.pCodeguida %}
+                                <td class="td-social-icon">
+                                    <a href="{{ this_user.pCodeguida}}" target="_blank">
+                                        <img src="{% static 'blog/social-img/codeguida.png' %}" alt="" class="social-icon">
+                                    </a>
+                                </td>
+                            {% endif %}
+                            {% if this_user.pFacebook %}
+                                <td class="td-social-icon">
+                                    <a href="{{ this_user.pFacebook}}" target="_blank">
+                                        <img src="{% static 'blog/social-img/fb.png' %}" alt="" class="social-icon">
+                                    </a>
+                                </td>
+                            {% endif %}
+                            {% if this_user.pTwitter %}
+                                <td class="td-social-icon">
+                                    <a href="{{ this_user.pTwitter}}" target="_blank">
+                                        <img src="{% static 'blog/social-img/twitter.png' %}" alt="" class="social-icon">
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    </table>
+                    <hr>
+                    <h4 class="namefield margin-left-in-profile margin-bottom-0">Коротко про мене: <span class="c777">{{ this_user.about_me }}</span></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 hidden-md hidden-lg">
+				<h2 class="tops">Плейлисти користувача:</h2>
+				<ul class="nav nav-pills" role="tablist">
+                    {% for playlist in playlists %}
+					    <li role="presentation"><a href="/playlist/id{{ playlist.id }}">{{ playlist.name }}</a></li>
+                    {% endfor %}
+				</ul>
+			</div>
+
+			<!-- For MD and LG display -->
+			<div class="col-md-3 hidden-xs hidden-sm">
+				<h2 class="tops">
+                    Плейлисти
+				</h2>
+				<div class="row">
+					{% for playlist in playlists %}
+                        <div class="col-md-6">
+                            <a href="/playlist/id{{ playlist.id }}" >
+                                <div style="background-image: url({{ playlist.main_img.url }})" class="img-rounded top-playlist bg-img-cover" alt="" data-toggle="tooltip" data-placement="bottom" title="{{ playlist.name }}"></div>
+                            </a>
+                        </div>
+                    {% endfor %}
+				</div>
+			</div>
+
+            <div class="col-md-9 posts-block">
+                <h2 class="tops">Публікації користувача</h2>
+                {% for post in posts %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="thumbnail post">
+                            <div class='author-thumbnail'>
+                                <a href="/user/id{{ post.author.id }}">
+                                    <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
+                                    <h5 class="nick-thumbnail">{{ post.author }}</h5>
+                                </a>
+                                <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h6>
+                            </div>
+
+                                {% if post.post_img %}
+                                    <a href="{% url 'out_single_post' post.id %}">
+                                        <div style="background-image: url({{ post.post_img.url }});" class="post-img bg-img-cover"></div>
+                                    </a>
+                                {% else %}
+                                    <p class="post-text bg-img-cover">{{ post.text }}</p>
+                                {% endif %}
+            {#            {% static 'blog/img/FSworld-famous.png' %}#}
+                            {% if post.playlist %}
+                                <style>
+                                .name-playlist-{{ post.id }} {
+                                    background-color: {{ post.playlist.color }};
+                                }
+                                .name-playlist-{{ post.id }}:hover {
+                                    background-color: #fff;
+                                    color: {{ post.playlist.color }};
+                                }
+                            </style>
+                            <a href="{% url 'output_playlist' post.playlist_id %}" class="name-playlist-thumbnail-block">
+                                <h5><span class="name-playlist-thumbnail name-playlist-{{ post.id }}">
+                                    {{ post.playlist }}
+                                </span></h5>
+                            </a>
+                            {% endif %}
+                            <div class="post-bottom-panel">
+                                <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;
+                                <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;
+    {#                            <span class="glyphicon glyphicon-comment c777"></span> 3#}
+                            </div>
+                            <a href="{% url 'out_single_post' post.id %}">
+                                <h4 class="name-post">{{ post.title }}</h4>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

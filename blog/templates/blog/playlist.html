@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block playlist %}
+    <div class="container">
+        <div class="row playlist-header">
+            <div class="col-md-9">
+                <div class="thumbnail">
+                    <div style="background-image: url({{ playlist.main_img.url }});" class="playlist-img bg-img-cover"></div>
+                    <h2 class="tops">{{ playlist }}</h2>
+                    {% if edit_playlist %}
+                        <a href="{% url 'edit_playlist' playlist.id %}" class="btn btn-description-playlist" >Змінити</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail author-box-class" id="author-box">
+                    <a href="/user/id{{ playlist.author.id }}">
+                        <div style="background-image: url({{ playlist.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
+                        <h4 class="author-box-nickname ">{{ playlist.author }}</h4>
+                    </a>
+                    <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h5>
+                    <div class="author-box-info">
+                        <table class="author-box-info-table">
+                            <tr align="center">
+                                <td><span class="glyphicon glyphicon-thumbs-up c777"></span><br>{{ playlist.like }}</td>
+                                <td><span class="glyphicon glyphicon-eye-open c777"></span><br>{{ playlist.views }}</td>
+                                <td><span class="glyphicon glyphicon-comment c777"></span><br>{{ playlist.comments }}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .name-playlist {
+            background-color: {{ color }};
+        }
+        .name-playlist:hover {
+            background-color: #fff;
+            color: {{ color }};
+        }
+    </style>
+    <div class="container posts-block">
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="thumbnail post">
+                        <div class='author-thumbnail'>
+                            <a href="/user/id{{ playlist.author.id }}">
+                                <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
+                                <h5 class="nick-thumbnail">{{ post.author }}</h5>
+                            </a>
+                            <h6 class="thank-thumbnail"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h6>
+                        </div>
+
+                            {% if post.post_img %}
+                                <a href="{% url 'out_single_post' post.id %}">
+                                    <div style="background-image: url({{ post.post_img.url }});" class="post-img bg-img-cover"></div>
+                                </a>
+                            {% else %}
+                                <p class="post-text bg-img-cover">{{ post.text }}</p>
+                            {% endif %}
+
+                            <a href="{% url 'output_playlist' post.playlist_id %}" class="name-playlist-thumbnail-block">
+                                <h5><span class="name-playlist-thumbnail name-playlist">
+                                    {{ post.playlist }}
+                                </span></h5>
+                            </a>
+
+                        <div class="post-bottom-panel">
+                            <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-comment c777"></span> {{ post.comments_numb }}
+                        </div>
+                        <a href="{% url 'out_single_post' post.id %}">
+                            <h4 class="name-post">{{ post.title }}</h4>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/media.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/font-awesome.min.css' %}">
+
+</head>
+<body>
+
+    {% block login %}
+        {# login page #}
+    {% endblock %}
+
+    {% block register %}
+        {# login page #}
+    {% endblock %}
+
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/bootstrap.js' %}"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/bootstrap.min.js'%}"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'blog/js/common.js' %}"></script>
+
+</body>
+</html>
