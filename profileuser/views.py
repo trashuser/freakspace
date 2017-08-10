@@ -20,7 +20,6 @@ def out_profile_user(request, id):
             auth = True
             if int(request.user.id) == int(id):
                 its_me = True
-        print(this_user.user_id)
         playlists = models.Playlist.objects.filter(author=this_user)
         posts = models.Post.objects.filter(author=this_user)
         return render(request, 'profileuser/userpage.html', locals())

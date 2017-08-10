@@ -6,30 +6,35 @@
 
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
-
+            {% if carousel %}
+                {% for slide in carousel %}
+                    <li data-target="#myCarousel" data-slide-to=""></li>
+                {% endfor %}
+            {% endif %}
         </ol>
         <!-- Слайды карусели -->
         <div class="carousel-inner">
             <div class="active item">
-                <!-- <h2>Слайд №1</h2> -->
-                <img src="{{ active_slide.post_img.url }}" alt="" class="slide">
-                <div class="carousel-caption">
-                    <h3>{{ active_slide.title }}</h3>
+                <img src="{{ active_slide.slide.post_img.url }}" alt="" class="slide">
+                <div class="carousel-caption" style="background: rgba(74, 154, 147, 0.81);border-radius: 7px;">
+                    <h2>{{ active_slide.slide.title }}</h2>
+                    {% if active_slide.slide.short_desc %}
+                        <h3>{{ active_slide.slide.short_desc }}</h3>
+                    {% endif %}
 {#                    <p></p>#}
-                    <a href="{% url 'out_single_post' active_slide.id %}" class="btn btn-primary">Перейти до статті</a>
+                    <a href="{% url 'out_single_post' active_slide.slide.id %}" class="btn" style="background: #ccc;">Перейти до статті</a>
                 </div>
             </div>
             {% for slide in carousel %}
                 <div class="item">
                     <!-- <h2>Слайд №1</h2> -->
-                    <img src="{{ slide.post_img.url }}" alt="" class="slide">
-                    <div class="carousel-caption">
-                        <h3>{{ slide.title }}</h3>
-{#                        <p></p>#}
-                        <a href="{% url 'out_single_post' slide.id %}" class="btn btn-primary">Перейти до статті</a>
+                    <img src="{{ slide.slide.post_img.url }}" alt="" class="slide">
+                    <div class="carousel-caption" style="background: rgba(10, 12, 62, 0.81);border-radius: 7px;">
+                        <h2>{{ slide.slide.title }}</h2>
+                        {% if slide.slide.short_desc %}
+                            <h3>{{ slide.slide.short_desc }}</h3>
+                        {% endif %}
+                        <a href="{% url 'out_single_post' slide.slide.id %}" class="btn" style="background: #ccc;">Перейти до статті</a>
                     </div>
                 </div>
             {% endfor %}

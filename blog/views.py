@@ -8,7 +8,7 @@ from .form import *
 
 def output_publish(request):
     update_activity(request)
-    update_numb_tags()
+    # update_numb_tags()
 
     top_playlist = Playlist.objects.order_by('-like')[:4]
 
@@ -16,15 +16,16 @@ def output_publish(request):
     for post in posts:
         post.comments_numb = Comment.objects.filter(post=post).count()
 
-    carousel = Post.objects.order_by('-like')[:4]
+    carousel = Slider.objects.filter(is_active='1')
     active_slide = carousel[0]
-    carousel = carousel[1:4]
+    carousel = carousel[1:]
+
     top_tags = Tag.objects.order_by('-numb')[:15]
 
     if request.user.is_authenticated():
         user = UserProfile.objects.get(user_id=request.user.id)
         auth = True
-    # posts.reverse()
+
     return render_to_response('blog/index.html', locals())
 
 
@@ -248,9 +249,18 @@ def add_post(request):
             tags = [tag.strip() for tag in row_tags]
             for tag in tags:
                 try:
-                    post.tags.add(Tag.objects.get(name=tag))
+                    this_tag = Tag.objects.get(name=tag)
+                    post.tags.add(this_tag)
+
                 except:
                     post.tags.create(name=tag)
+                    this_tag = Tag.objects.get(name=tag)
+                    this_tag.numb += 1
+                    this_tag.save(update_fields=['numb'])
+                else:
+                    this_tag.numb += 1
+                    this_tag.save(update_fields=['numb'])
+
             return redirect('/post/id' + str(post.id))
     else:
         return redirect('/')
@@ -276,12 +286,25 @@ def commit_post(request, id_post):
         row_tags = request.POST.get('tags').strip(',\n\r\t').split(',')
         tags = [tag.strip() for tag in row_tags if tag]
         post.tags.clear()
+        post_tags = Tag.objects.filter(post=post)
+        for tag in post_tags:
+            if tag.name in tags:
+                tags.remove(tag.name)
+
         for tag in tags:
-            if tag:
-                try:
-                    post.tags.add(Tag.objects.get(name=tag))
-                except:
-                    post.tags.create(name=tag)
+            try:
+                this_tag = Tag.objects.get(name=tag)
+                post.tags.add(this_tag)
+
+            except:
+                post.tags.create(name=tag)
+                this_tag = Tag.objects.get(name=tag)
+                this_tag.numb += 1
+                this_tag.save(update_fields=['numb'])
+            else:
+                this_tag.numb += 1
+                this_tag.save(update_fields=['numb'])
+
         return redirect('/post/id' + str(post.id))
     else:
         return redirect('/')

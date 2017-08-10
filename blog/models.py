@@ -61,6 +61,7 @@ class Post(models.Model):
     author = models.ForeignKey('UserProfile')
     title = models.CharField(max_length=200)
     text = models.TextField()
+    short_desc = models.TextField(max_length=200, null=True, blank=True)
 
     created_date = models.DateTimeField(
             default=timezone.now)
@@ -95,3 +96,8 @@ class Comment(models.Model):
     def __str__(self):
         return  self.content[0:200]
 
+class Slider(models.Model):
+    slide = models.ForeignKey('Post')
+    is_active = models.CharField('1-активний, 0-неактивний', max_length=1)
+    def __str__(self):
+        return self.slide.title
