@@ -8,4 +8,4 @@ admin.site.register(Playlist)
 admin.site.register(Tag)
 admin.site.register(UserProfile)
 admin.site.register(Comment)
-
+admin.site.register(Slider)

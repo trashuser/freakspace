@@ -106,7 +106,10 @@ text-decoration: none !important;
     margin: 30px 10px 0 10px;
 }
 /*END TOP POST*/
-
+.carousel-caption {
+    padding: 30px !important;
+	text-align: left !important;
+}
 .playlist-name-in-post {
 	position: absolute;
     bottom: 0;
