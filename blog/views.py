@@ -22,6 +22,8 @@ def output_publish(request):
 
     top_tags = Tag.objects.order_by('-numb')[:15]
 
+    namepage = 'Freakspace'
+
     if request.user.is_authenticated():
         user = UserProfile.objects.get(user_id=request.user.id)
         auth = True
@@ -31,6 +33,8 @@ def output_publish(request):
 
 
 def output_tags(request, tag):
+    namepage = '#' + tag
+
     title = tag
     posts = Post.objects.filter(tags=Tag.objects.get(name=tag).id)
     for post in posts:
@@ -41,20 +45,26 @@ def output_tags(request, tag):
 
 def output_playlist(request, id):
     update_activity(request)
+
+    # проблемне місце! Занадто багато часу і ресурсів використовується!
     update_views_playlist(id)
     update_comments(id)
+
+    auth = False
+
     playlist = Playlist.objects.select_related().get(id=id)
+    namepage = playlist.name
     color = playlist.color
-    if playlist.author == UserProfile.objects.get(user=request.user) or request.user.is_superuser:
-        edit_playlist = True
+
+    if request.user.is_authenticated():
+        user = UserProfile.objects.get(user=request.user)
+        auth = True
+        if playlist.author == UserProfile.objects.get(user=request.user) or request.user.is_superuser:
+            edit_playlist = True
     posts = playlist.post_set.all()
     for post in posts:
         post.comments_numb = Comment.objects.filter(post=post).count()
 
-    auth = False
-    if request.user.is_authenticated():
-        user = UserProfile.objects.get(user=request.user)
-        auth = True
 
     return render(request, 'blog/playlist.html', locals())
 
@@ -70,8 +80,10 @@ def output_single_pubish(request, id):
     comments = Comment.objects.filter(post=post)
     comments.numb = comments.count()
     tags = Tag.objects.filter(post=id)
-    for tag in tags:
-        tag.numb = Post.objects.filter(tags__name__startswith=tag.name).count()
+    # for tag in tags:
+        # tag.numb = Post.objects.filter(tags__name__startswith=tag.name).count()
+        # tag.save()
+    namepage = post.title
     try:
         playlist = Playlist.objects.get(post=post)
     except:
@@ -114,7 +126,7 @@ def add_comment(request, post_id):
 # WRITE AND EDIT POST
 def write_post(request, id_post=None):
     auth = False
-
+    namepage = 'Створити запис'
     # user auth?
     if request.user.is_authenticated():
         this_admin = False
@@ -179,6 +191,7 @@ def write_post(request, id_post=None):
 
 
 def create_playlist(request, id_playlist=None):
+    namepage = 'Створити плейлист'
     if not request.user.is_authenticated():
         return redirect('/auth/login/')
     auth = True
@@ -283,15 +296,43 @@ def commit_post(request, id_post):
         post.published_date = timezone.now()
         post.playlist = Playlist.objects.get(id=request.POST.get('playlist'))
         post.save()
-        row_tags = request.POST.get('tags').strip(',\n\r\t').split(',')
-        tags = [tag.strip() for tag in row_tags if tag]
-        post.tags.clear()
-        post_tags = Tag.objects.filter(post=post)
-        for tag in post_tags:
-            if tag.name in tags:
-                tags.remove(tag.name)
 
-        for tag in tags:
+        old_tags = []
+        row_tags = request.POST.get('tags').strip(',\n\r\t').split(',')
+
+        new_tags = [tag.strip() for tag in row_tags if tag]
+        post_tags = Tag.objects.filter(post=post)
+
+        for tag in post_tags:
+            old_tags.append(tag.name)
+        print(new_tags, old_tags)
+        # шукаємо старі теги, яких немає серед нових (зайві)
+        excessives = list(set(old_tags) - set(new_tags))
+
+        # видаляємо їх зі списку старих тегів
+        updates_old_tags = list(set(old_tags) - set(excessives))
+
+        # видаляємо вже використовувані в цьому пості теги зі списку нових
+        updates_new_tags = list(set(new_tags) - set(updates_old_tags))
+
+        post.tags.clear()
+
+        print(updates_old_tags, updates_new_tags, excessives)
+        # зменшуємо на 1 кількість записів з зайвими тегами
+        for tag in excessives:
+            this_tag = Tag.objects.get(name=tag)
+            print('Before: ', this_tag.numb)
+            this_tag.numb -= 1
+            print('After: ', this_tag.numb)
+            this_tag.save()
+
+        # повертаємо старі теги
+        for tag in updates_old_tags:
+            this_tag = Tag.objects.get(name=tag)
+            post.tags.add(this_tag)
+
+        # додаємо нові
+        for tag in updates_new_tags:
             try:
                 this_tag = Tag.objects.get(name=tag)
                 post.tags.add(this_tag)
