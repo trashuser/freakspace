@@ -12,6 +12,28 @@
 
 </head>
 <body>
+    <header>
+		<nav class="navbar navbar-fixed-top navbar-fs">
+            <div class="container">
+{#                <div class="row">#}
+                    <a href="{% url 'output_publish' %}">
+                        <img src="{% static 'blog/img/logo.png' %}" alt="" class="logo">
+                        <b style="font-size: 25px; margin-left: -12px;">β</b>
+                    </a>
+                    {% if not auth %}
+                        <a href="/auth/register/" class="btn-login">Реєстрація</a>
+                        <a href="/auth/login/" class="btn-login">Вхід</a>
+                    {% else %}
+                        <a href="/auth/logout/" class="btn-login">Вихід</a>
+                        <a href="{% url 'create_playlist' %}" class="btn-login">Створити плейлист</a>
+                        <a href="{% url 'write_post' %}" class="btn-login">Створити запис</a>
+                        <a href="{% url 'profile_user' user.id %}" class="btn-login">{{ user }}</a>
+                    {% endif %}
+{#                </div>#}
+            </div>
+		</nav>
+    </header>
+
 
     {% block login %}
         {# login page #}

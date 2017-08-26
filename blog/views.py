@@ -5,6 +5,9 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from .form import *
 # from django.core.context_processors import csrf
 
+colors_playlist = ['14dc52', '69a02d', '175d0b', '0d91bb', '2f6475',
+                   '0d3744', 'e0d123', 'e06923', 'e04623']
+
 
 def output_publish(request):
     update_activity(request)
@@ -218,11 +221,15 @@ def commit_playlist(request):
             playlist = img_field.save(commit=False)
             playlist.name = request.POST.get('name')
             playlist.color = request.POST.get('selectbgcolor')
-            print(playlist.color)
+
+            if playlist.color not in colors_playlist:
+                form = CreatePlaylist()
+                return render(request, 'blog/createPlaylist.html', locals())
+            # print(playlist.color)
             playlist.description = request.POST.get('description')
             playlist.author = UserProfile.objects.get(user=request.user)
             playlist.save()
-        return redirect('/playlist/id'+str(playlist.id))\
+            return redirect('/playlist/id'+str(playlist.id))\
 
 @csrf_protect
 def commit_playlist_edit(request, id_playlist):
@@ -305,7 +312,7 @@ def commit_post(request, id_post):
 
         for tag in post_tags:
             old_tags.append(tag.name)
-        print(new_tags, old_tags)
+        # print(new_tags, old_tags)
         # шукаємо старі теги, яких немає серед нових (зайві)
         excessives = list(set(old_tags) - set(new_tags))
 
@@ -317,13 +324,13 @@ def commit_post(request, id_post):
 
         post.tags.clear()
 
-        print(updates_old_tags, updates_new_tags, excessives)
+        # print(updates_old_tags, updates_new_tags, excessives)
         # зменшуємо на 1 кількість записів з зайвими тегами
         for tag in excessives:
             this_tag = Tag.objects.get(name=tag)
-            print('Before: ', this_tag.numb)
+            # print('Before: ', this_tag.numb)
             this_tag.numb -= 1
-            print('After: ', this_tag.numb)
+            # print('After: ', this_tag.numb)
             this_tag.save()
 
         # повертаємо старі теги

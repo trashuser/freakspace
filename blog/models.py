@@ -39,7 +39,8 @@ class Playlist(models.Model):
     comments = models.IntegerField(default=0)
     author = models.ForeignKey('UserProfile')
     color = models.CharField(max_length=7, default='#29424a')
-
+    # todo: contributors in playlists
+    contributors = models.ManyToManyField(User)
     def __str__(self):
         return self.name
 
