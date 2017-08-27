@@ -36,10 +36,13 @@ def output_publish(request):
 
 
 def output_tags(request, tag):
-    namepage = '#' + tag
-
+    if request.user.is_authenticated():
+        user = UserProfile.objects.get(user=request.user)
+        auth = True
     title = tag
-    posts = Post.objects.filter(tags=Tag.objects.get(name=tag).id)
+    this_tag = Tag.objects.get(name=tag)
+    namepage = '#' + tag
+    posts = Post.objects.filter(tags=this_tag.id)
     for post in posts:
         post.comments_numb = Comment.objects.filter(post=post).count()
     return render(request, 'blog/posts.html', locals())
