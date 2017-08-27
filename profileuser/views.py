@@ -14,8 +14,6 @@ def out_profile_user(request, id):
         auth = True
     this_user = models.UserProfile.objects.get(id=id)
     namepage = this_user.user.username
-    if request.user.id == id:
-        editprofile = True
     if time.time() - this_user.last_activity <= min_5:
         Online = True
     else:
@@ -33,6 +31,7 @@ def out_profile_user(request, id):
 def edit_profile_user(request, id):
     user = models.User.objects.get(id=id)
     if request.user.is_authenticated() and user == request.user:
+        auth = True
         userprofile = models.UserProfile.objects.get(user=user)
         email = userprofile.email
         aboutme = userprofile.about_me
