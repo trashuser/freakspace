@@ -20,6 +20,9 @@
                             <h4>Остання активність: {{ loctime }}</h4>
                         {% endif %}
                     </div>
+                    {% if editprofile %}
+                        <a href="{% url 'edit_profile_user' id %}">Налаштування</a>
+                    {% endif %}
                     <hr>
                     <h4 class="margin-left-in-profile namefield">Отримані подяки за працю:
                         <span class="glyphicon glyphicon-thumbs-up c222"></span>
