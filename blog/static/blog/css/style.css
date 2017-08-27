@@ -270,6 +270,26 @@ text-decoration: none !important;
     box-shadow: 0 0 10px 5px rgba(64, 64, 64, 0.8);*/
 }
 
+.edit_profile_user {
+	margin-top: 20px;
+}
+.input_area {
+    height: 40px;
+	width: 100%;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    padding: 7px;
+    font-size: 17px;
+	margin-bottom: 10px;
+}
+.input_textarea {
+	width: 100%;
+	border-radius: 7px;
+	border: 1px solid #ccc;
+	padding: 7px;
+	font-size: 17px;
+}
+
 .playlist-header {
 	margin-top: 30px;
 }

@@ -11,7 +11,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     email = models.CharField(max_length=70, blank=True, null=True)
     like = models.IntegerField(default=50)
-    avatar = models.ImageField(upload_to='user_avatar', blank=True, null=True,
+    avatar = models.ImageField('Зображення профілю', upload_to='user_avatar', blank=True, null=True,
                                default='default'+str(random.randrange(0, 14, 1))+'.png')
     # age = models.DateField('День народження')
     about_me = models.TextField(max_length=120, blank=True, null=True)

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block edituserpage %}
+    <form action="{% url 'commit_edit_profile_user' id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-md-7 edit_profile_user">
+                <label for="email">Email:</label>
+                <input type="email" id="email" class="input_area" name="email" placeholder="Email" value="{{ email }}" required><br>
+
+                <label for="aboutme">Коротко про мене:</label>
+                <textarea name="aboutme" id="aboutme" class="input_textarea" placeholder="Коротко про мене"  rows="5">{{ aboutme }}</textarea>
+
+                {# Аккаунти в соц. мережах #}
+                <div class="col-md-6">
+
+                    <label for="github">
+                        <img src="{% static 'blog/social-img/GitHub.png' %}" alt="" class="social-icon">
+                        GitHub
+                    </label>
+                    <input type="url" class="input_area" name="github" id="github" value="{% if github %}{{ github }}{% endif %}">
+
+
+                    <label for="gitlab">
+                        <img src="{% static 'blog/social-img/GitLab.png' %}" alt="" class="social-icon">
+                        GitLab
+                    </label>
+                    <input type="url" class="input_area" name="gitlab" id="gitlab" value="{% if gitlab %}{{ gitlab }}{% endif %}">
+
+
+                    <label for="linkedin">
+                        <img src="{% static 'blog/social-img/linkedIn.png' %}" alt="" class="social-icon">
+                        LinkedIn
+                    </label>
+                    <input type="url" class="input_area" name="linkedin" id="linkedin" value="{% if linkedin %}{{ linkedin }}{% endif %}">
+                </div>
+                <div class="col-md-6">
+
+                    <label for="replace">
+                        <img src="{% static 'blog/social-img/replace.png' %}" alt="" class="social-icon">
+                        Replace.org.ua
+                    </label>
+                    <input type="url" class="input_area" name="replace" id="replace" value="{% if replace %}{{ replace }}{% endif %}">
+
+
+                    <label for="facebook">
+                        <img src="{% static 'blog/social-img/fb.png' %}" alt="" class="social-icon">
+                        Facebook
+                    </label>
+                    <input type="url" class="input_area" name="facebook" id="facebook" value="{% if facebook %}{{ facebook }}{% endif %}">
+
+
+                    <label for="twitter">
+                        <img src="{% static 'blog/social-img/twitter.png' %}" height="30px" width="35px" alt="" class="social-icon">
+                        Twitter
+                    </label>
+                    <input type="url" class="input_area" name="twitter" id="twitter" value="{% if twitter %}{{ twitter }}{% endif %}">
+
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div style="background-image: url({{ userprofile.avatar.url }});" class="author-box-avatar-in-profile bg-img-cover img-circle"></div>
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Зберегти зміни</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
