@@ -304,7 +304,10 @@ def commit_post(request, id_post):
         post.text = request.POST.get('text')
         post.author = UserProfile.objects.get(user=request.user)
         post.published_date = timezone.now()
-        post.playlist = Playlist.objects.get(id=request.POST.get('playlist'))
+        try:
+            post.playlist = Playlist.objects.get(id=request.POST.get('playlist'))
+        except:
+            pass
         post.save()
 
         old_tags = []
