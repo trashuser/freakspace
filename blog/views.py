@@ -302,7 +302,7 @@ def commit_post(request, id_post):
 
         post.title = request.POST.get('title')
         post.text = request.POST.get('text')
-        post.author = UserProfile.objects.get(user=request.user)
+        # post.author = UserProfile.objects.get(user=request.user)
         post.published_date = timezone.now()
         try:
             post.playlist = Playlist.objects.get(id=request.POST.get('playlist'))
